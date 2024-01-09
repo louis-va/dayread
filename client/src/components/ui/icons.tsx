@@ -35,6 +35,7 @@ export default function Icon({
   if (notif === false) {
     return (
       <div className="icons">
+        {/* {icon === "home" && <LuHome size={size} className={className} />} */}
         {icon === "home" && <LuHome size={size} className={className} />}
         {icon === "like" && <LuHeart size={size} />}
         {icon === "newPost" && <LuPenSquare size={size} />}
