@@ -1,7 +1,9 @@
 import { ThemeProvider } from "./components/theme-provider";
 import Typography from "./features/Typography";
 import "./main.css";
+
 import { Layout } from "@/features/Layout";
+
 
 function App() {
   return (
