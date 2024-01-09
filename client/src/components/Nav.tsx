@@ -1,6 +1,7 @@
 "use client";
 
 import { ModeToggle } from "./mode-toggle";
+import Logo from "@/features/Logo";
 
 export default function Nav() {
   return (
@@ -9,7 +10,7 @@ export default function Nav() {
         <ul className="flex items-center justify-between">
           <li>
             <a className="" target="_blank" rel="noopener noreferrer">
-              <h1 className="text-primary font-bold">D.</h1>
+              <Logo size={'sm'} />
             </a>
           </li>
           <li>
