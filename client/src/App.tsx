@@ -13,7 +13,14 @@ function App() {
           <Typography as={"h1"} className={"text-7xl underline"}>
             ShadCN is awesome
           </Typography>
-          <Icon icon="home" size="lg" />
+          <div className="flex gap-5 mt-20">
+            <Icon icon="home" />
+            <Icon icon="like" />
+            <Icon icon="newPost" />
+            <Icon icon="profile" />
+            <Icon icon="burger" />
+            <Icon icon="more" />
+          </div>
         </section>
       </main>
     </ThemeProvider>
