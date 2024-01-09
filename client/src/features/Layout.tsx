@@ -1,23 +1,22 @@
 import Nav from "@/components/Nav";
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 
 interface LayoutProps {
-    children?: ReactNode;
+  children?: ReactNode;
 }
 
-const Layout = ({children}: LayoutProps) => {
-    return (
-        <section className="w-full h-dvh flex flex-col items-center">
-            <section className={"w-full h-full md:w-[64%] flex flex-col gap-4"}>
-                <Nav/>
-                <main className="flex">
-                    {children}
-                </main>
-                {/* A modifier par le bon component */}
-                <Nav/>
-            </section>
-        </section>
-    );
+export const Layout = ({ children }: LayoutProps) => {
+  return (
+    <div className="w-full flex items-center justify-center overflow-x-hidden">
+      <section className="md:w-9/12 w-full h-full flex">
+        <aside className="md:w-1/5 md:p-5">
+          <Nav />
+        </aside>
+        <main className="w-4/5 h-screen md:w-4/5 md:border-x-2 md:border-border">
+          {children}
+        </main>
+      </section>
+    </div>
+  );
 };
 
-export default Layout;
