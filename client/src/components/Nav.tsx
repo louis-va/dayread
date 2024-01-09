@@ -7,7 +7,7 @@ import { Button } from "./ui/button";
 
 export default function Nav() {
   const navDesktopClasses =
-    "md:flex md:flex-col md:relative md:justify-between md:gap-5 md:border-none py-5 md:py-0";
+    "md:flex md:flex-col md:relative md:justify-between md:gap-5 md:border-none py-5 md:py-0 md:h-full";
   const navMobileClasses =
     "absolute bottom-0 bg-background border-border border-t-2 w-full";
   return (
