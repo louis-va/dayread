@@ -5,7 +5,7 @@ interface LayoutProps {
     children?: ReactNode;
 }
 
-export const Layout = ({children}: LayoutProps) => {
+const Layout = ({children}: LayoutProps) => {
     return (
         <section className="w-full h-dvh flex flex-col items-center">
             <section className={"w-full h-full md:w-[64%] flex flex-col gap-4"}>
@@ -19,3 +19,5 @@ export const Layout = ({children}: LayoutProps) => {
         </section>
     );
 };
+
+export default Layout;
