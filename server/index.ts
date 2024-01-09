@@ -6,6 +6,7 @@ import cors from 'cors';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import passport from 'passport';
 
 // Import routes & models
 import database from './models';
@@ -67,6 +68,9 @@ database.mongoose
       console.error("Connection error", err);
       process.exit(1);
   });
+
+// Initialize passport
+app.use(passport.initialize());
 
 // Routes
 app.use('/auth', authRoutes);
