@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
 import { ThemeProvider } from "./components/theme-provider";
+import Icon from "./components/ui/icons";
 import "./main.css";
 import Typography from "@/features/Typography";
 import {Layout} from "@/features/Layout";
