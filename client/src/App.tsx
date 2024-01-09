@@ -1,5 +1,6 @@
 import Nav from "./components/Nav";
 import { ThemeProvider } from "./components/theme-provider";
+import Icon from "./components/ui/icons";
 import "./main.css";
 import Typography from "@/features/Typography";
 
@@ -9,7 +10,10 @@ function App() {
       <main className="flex flex-col p-5 gap-20">
         <Nav />
         <section className="flex flex-col gap-8 items-center">
-          <Typography as={'h1'} className={'text-7xl underline'}>ShadCN is awesome</Typography>
+          <Typography as={"h1"} className={"text-7xl underline"}>
+            ShadCN is awesome
+          </Typography>
+          <Icon icon="home" size="lg" />
         </section>
       </main>
     </ThemeProvider>
