@@ -7,6 +7,8 @@ import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
 // Import routes, models & configs
 import database from './models';
@@ -19,12 +21,33 @@ dotenv.config();
 // Initialise express
 const app: Express = express();
 
+// Define, configure and serve Swagger/OpenAPI
+const options: swaggerJsdoc.OAS3Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Dayread API',
+      version: '1.0.0',
+      description: 'API of the Dayread app.',
+    },
+    servers: [
+      {
+        url: 'http://localhost:8000', // Your server URL
+      },
+    ],
+  },
+  apis: ['./routes/*.ts'], // Path to your API routes files
+};
+
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
 // Enhance API security
 app.use(helmet());
 
 // Allow requests from multiple origins
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://localhost:8000"],
   credentials: true
 }));
 
