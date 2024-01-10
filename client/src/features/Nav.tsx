@@ -2,9 +2,8 @@
 
 import Typography from "@/features/Typography";
 import { ModeToggle } from "./mode-toggle";
-import Icon from "./ui/icons";
-import { Button } from "./ui/button";
-
+import Icon from "../components/ui/icons";
+import { Button } from "../components/ui/button";
 
 export default function Nav() {
   const navDesktopClasses =

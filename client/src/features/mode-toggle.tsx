@@ -1,7 +1,7 @@
 import { LuMoon, LuSun } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
-import { useTheme } from "@/components/theme-provider";
+import { useTheme } from "@/components/ui/theme-provider";
 import Typography from "@/features/Typography";
 
 export function ModeToggle() {
