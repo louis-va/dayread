@@ -17,18 +17,22 @@ const cookieExtractor = (req: any) => {
   return token;
 };
 
-const opts: StrategyOptions = {
-  jwtFromRequest: cookieExtractor,
-  secretOrKey: process.env.JWT_SECRET,
-  algorithms: ["HS256"]
+const useJwtStrategy = () => {
+  const opts: StrategyOptions = {
+    jwtFromRequest: cookieExtractor,
+    secretOrKey: process.env.JWT_SECRET,
+    algorithms: ["HS256"]
+  }
+  
+  passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
+    try {
+      const user = await User.findOne({ _id: jwt_payload.sub })
+      if (user) return done(null, user)
+      else return done(null, false)
+    } catch(err) {
+      return done(err, false)
+    }
+  }));
 }
 
-passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
-  try {
-    const user = await User.findOne({ _id: jwt_payload.sub })
-    if (user) return done(null, user)
-    else return done(null, false)
-  } catch(err) {
-    return done(err, false)
-  }
-}));
+export { useJwtStrategy }

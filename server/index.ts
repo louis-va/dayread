@@ -8,9 +8,10 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
 
-// Import routes & models
+// Import routes, models & configs
 import database from './models';
 import authRoutes from './routes/auth.route'
+import { useJwtStrategy } from './config/passport';
 
 // Load env
 dotenv.config();
@@ -71,6 +72,7 @@ database.mongoose
 
 // Initialize passport
 app.use(passport.initialize());
+useJwtStrategy()
 
 // Routes
 app.use('/auth', authRoutes);
