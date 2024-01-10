@@ -1,13 +1,16 @@
 import express, { Request, Response } from 'express';
 import passport from 'passport'
 import auth from '../controllers/auth.controller'
-import { checkDuplicateEmail } from '../middlewares/validateSignUp';
-import '../config/passport'
+import { checkDuplicateEmail, checkDuplicateUsername, validatePassword } from '../middlewares/validateSignUp';
 
 const router = express.Router();
 
 router.post("/signup",
-  [checkDuplicateEmail],
+  [
+    checkDuplicateEmail,
+    checkDuplicateUsername,
+    validatePassword
+  ],
   auth.signUp
 );
 
@@ -20,7 +23,7 @@ router.post("/signout",
 );
 
 router.get("/protected",
-  passport.authenticate("jwt", { session: false, failureRedirect: '/login' }),
+  passport.authenticate("jwt", { session: false, failureRedirect: '' }),
   (req: Request, res: Response) => {
     res.status(200).json({
       success: true,
