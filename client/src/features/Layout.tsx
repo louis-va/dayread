@@ -9,17 +9,17 @@ interface LayoutProps {
 
 export const Layout = ({ children }: LayoutProps) => {
   return (
-    <div className="w-full flex items-center justify-center overflow-x-hidden">
-      <section className="md:w-9/12 w-full h-full flex">
-        <aside className="md:w-1/5 md:p-5">
-          <Nav />
-        </aside>
+    <div className="w-full flex justify-center overflow-x-hidden">
+      <aside className="md:fixed md:left-0 md:p-5 md:h-full">
+        <Nav />
+      </aside>
+      <section className="md:w-1/2 w-full h-full flex">
         <header className="fixed w-full flex items-center justify-center p-5 bg-popover/70 z-10 backdrop-blur-lg md:hidden">
           <Link to="/">
             <Logo size={30}></Logo>
           </Link>
         </header>
-        <main className="relative top-[70px] w-4/5 h-[1000px] md:w-4/5 md:border-x-2 md:border-border md:top-0">
+        <main className="relative top-[70px] w-full h-[1000px] md:border-x-2 md:border-border md:top-0">
           {children}
         </main>
       </section>
