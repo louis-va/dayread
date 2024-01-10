@@ -1,9 +1,7 @@
 import { Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import passport from 'passport'
-import dotenv from 'dotenv';
 import { User } from '../models/user.model';
-
-dotenv.config();
+import env from '../config/env.config'
 
 /**
  * Extracts the jwt from a cookie
@@ -20,7 +18,7 @@ const cookieExtractor = (req: any) => {
 const useJwtStrategy = () => {
   const opts: StrategyOptions = {
     jwtFromRequest: cookieExtractor,
-    secretOrKey: process.env.JWT_SECRET,
+    secretOrKey: env.JWT_SECRET,
     algorithms: ["HS256"]
   }
   

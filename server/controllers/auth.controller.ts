@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
-import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import database from '../models';
+import env from '../config/env.config'
 const User = database.user;
-
-dotenv.config();
 
 async function signUp(req: Request, res: Response) {
   try {
@@ -49,7 +47,7 @@ async function signIn(req: Request, res: Response) {
         sub: user.id,
         iat: Date.now()
       },
-      process.env.JWT_SECRET!,
+      env.JWT_SECRET,
       {
         algorithm: 'HS256',
         allowInsecureKeySizes: true,

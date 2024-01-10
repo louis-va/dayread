@@ -1,7 +1,6 @@
 // Import dependencies
 import express, { Express, Request, Response, NextFunction } from 'express';
 import { ConnectOptions } from 'mongoose';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
@@ -14,9 +13,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import database from './models';
 import authRoutes from './routes/auth.route'
 import { useJwtStrategy } from './config/passport';
-
-// Load env
-dotenv.config();
+import env from './config/env.config'
 
 // Initialise express
 const app: Express = express();
@@ -59,10 +56,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: "session",
-    keys: [process.env.COOKIE_SECRET!],
+    keys: [env.COOKIE_SECRET],
     httpOnly: true,
-    sameSite: (process.env.ENV === 'production') ? "none" : "strict",
-    secure: process.env.ENV === 'production',
+    sameSite: (env.ENV === 'production') ? "none" : "strict",
+    secure: env.ENV === 'production',
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   })
 );
@@ -81,7 +78,7 @@ app.use(morgan('combined'));
 
 // Connection to the database
 database.mongoose
-  .connect(process.env.DATABASE_URL!, {
+  .connect(env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   } as ConnectOptions)
@@ -101,6 +98,6 @@ useJwtStrategy()
 app.use('/auth', authRoutes);
 
 // Set port, listen for requests
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+app.listen(env.PORT, () => {
+  console.log(`Server is running at http://localhost:${env.PORT}`);
 });
