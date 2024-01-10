@@ -3,7 +3,6 @@
 import Typography from "@/features/Typography";
 import { ModeToggle } from "./mode-toggle";
 import Icon from "../components/ui/icons";
-import { Button } from "../components/ui/button";
 import Logo from "@/components/ui/logo";
 import { Link } from "react-router-dom";
 import { buttonVariants } from "@/components/ui/button";
@@ -23,22 +22,36 @@ export default function Nav() {
         <Link
           to="/"
           className={
-            buttonVariants({ variant: "ghost", size: "default" }) + "flex gap-3"
+            buttonVariants({ variant: "ghost", size: "default" }) +
+            "flex gap-3 md:w-full md:justify-start"
           }
         >
           <Icon icon="home" size={24} />
           <Typography className="hidden md:block">Home</Typography>
         </Link>
-        <Button size="default" variant="ghost" className="flex gap-3">
+
+        <Link
+          to="/"
+          className={
+            buttonVariants({ variant: "ghost", size: "default" }) +
+            "flex gap-3 md:w-full md:justify-start"
+          }
+        >
           <Icon icon="newPost" size={24} />
           <Typography className="hidden md:block">New Post</Typography>
-        </Button>
-        <Button size="default" variant="ghost" className="flex gap-3">
+        </Link>
+        <Link
+          to="/"
+          className={
+            buttonVariants({ variant: "ghost", size: "default" }) +
+            "flex gap-3 md:w-full md:justify-start"
+          }
+        >
           <Icon icon="profile" size={24} />
           <Typography className="hidden md:block">Profile</Typography>
-        </Button>
+        </Link>
       </div>
-      <div className="hidden md:block">
+      <div className="hidden md:block md:pl-6">
         <ModeToggle />
       </div>
     </nav>
