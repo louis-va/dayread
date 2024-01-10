@@ -1,4 +1,4 @@
-import Nav from "@/components/Nav";
+import Nav from "@/features/Nav";
 import { ReactNode } from "react";
 
 interface LayoutProps {
@@ -19,4 +19,3 @@ export const Layout = ({ children }: LayoutProps) => {
     </div>
   );
 };
-
