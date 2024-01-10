@@ -4,6 +4,7 @@ import Typography from "@/features/Typography";
 import { ModeToggle } from "./mode-toggle";
 import Icon from "../components/ui/icons";
 import { Button } from "../components/ui/button";
+import Logo from "@/components/ui/logo";
 
 export default function Nav() {
   const navDesktopClasses =
@@ -13,7 +14,8 @@ export default function Nav() {
   return (
     <nav className={`${navMobileClasses} ${navDesktopClasses}`}>
       <div className="flex justify-around items-center md:flex md:flex-col md:items-start md:gap-5">
-        <div className="hidden md:block md:pl-5">D.</div>
+        <Logo size={50} className="hidden md:block md:pl-6" />
+
         <Button size="default" variant="ghost" className="flex gap-3">
           <Icon icon="home" size={24} />
           <Typography className="hidden md:block">Home</Typography>
