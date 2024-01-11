@@ -10,10 +10,10 @@ import { useModal } from "@/context/ModalContext";
 
 export default function Nav() {
   const navDesktopClasses =
-    "md:flex md:flex-col md:relative md:justify-between md:gap-5 md:border-none py-5 md:py-0 md:h-full md:bg-background";
+    "md:flex md:flex-col md:relative md:justify-between md:gap-5 md:border-none md:py-5 md:py-0 md:h-full md:bg-background";
 
   const navMobileClasses =
-    "fixed bottom-0 bg-popover/70 backdrop-blur-lg  border-border border-t-2 w-full z-10";
+    "fixed bottom-0 bg-popover/70 backdrop-blur-lg  border-border border-t-2 w-full z-10 p-2";
 
   const { openModal } = useModal();
 
