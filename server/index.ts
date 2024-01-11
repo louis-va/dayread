@@ -1,29 +1,50 @@
 // Import dependencies
 import express, { Express, Request, Response, NextFunction } from 'express';
 import { ConnectOptions } from 'mongoose';
-import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieSession from 'cookie-session';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
+import swaggerUi from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
 
-// Import routes & models
+// Import routes, models & configs
 import database from './models';
 import authRoutes from './routes/auth.route'
-
-// Load env
-dotenv.config();
+import { useJwtStrategy } from './config/passport';
+import env from './env.config'
 
 // Initialise express
 const app: Express = express();
+
+// Define, configure and serve Swagger/OpenAPI
+const options: swaggerJsdoc.OAS3Options = {
+  definition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'Dayread API',
+      version: '1.0.0',
+      description: 'API of the Dayread app.',
+    },
+    servers: [
+      {
+        url: 'http://localhost:8000', // Your server URL
+      },
+    ],
+  },
+  apis: ['./routes/*.ts'], // Path to your API routes files
+};
+
+const specs = swaggerJsdoc(options);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Enhance API security
 app.use(helmet());
 
 // Allow requests from multiple origins
 app.use(cors({
-  origin: ["http://localhost:3000"],
+  origin: ["http://localhost:3000", "http://localhost:8000"],
   credentials: true
 }));
 
@@ -35,10 +56,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(
   cookieSession({
     name: "session",
-    keys: [process.env.COOKIE_SECRET!],
+    keys: [env.COOKIE_SECRET],
     httpOnly: true,
-    sameSite: (process.env.ENV === 'production') ? "none" : "strict",
-    secure: process.env.ENV === 'production',
+    sameSite: (env.ENV === 'production') ? "none" : "strict",
+    secure: env.ENV === 'production',
     maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
   })
 );
@@ -57,7 +78,7 @@ app.use(morgan('combined'));
 
 // Connection to the database
 database.mongoose
-  .connect(process.env.DATABASE_URL!, {
+  .connect(env.DATABASE_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true
   } as ConnectOptions)
@@ -71,11 +92,14 @@ database.mongoose
 
 // Initialize passport
 app.use(passport.initialize());
+useJwtStrategy()
 
 // Routes
 app.use('/auth', authRoutes);
 
 // Set port, listen for requests
-app.listen(process.env.PORT, () => {
-  console.log(`Server is running at http://localhost:${process.env.PORT}`);
+const server = app.listen(env.PORT, () => {
+  console.log(`Server is running at http://localhost:${env.PORT}`);
 });
+
+export { app, server };
