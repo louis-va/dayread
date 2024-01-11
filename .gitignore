@@ -19,6 +19,8 @@ dist
 *.local
 **/*.env
 **/*.env.production
+**/*.env.development
+**/*.env.test
 pnpm-lock.yaml
 
 # Editor directories and files
