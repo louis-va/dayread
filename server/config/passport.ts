@@ -1,7 +1,7 @@
 import { Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import passport from 'passport'
 import { User } from '../models/user.model';
-import env from '../config/env.config'
+import env from '../env.config'
 
 /**
  * Extracts the jwt from a cookie

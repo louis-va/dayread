@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import database from '../models';
-import env from '../config/env.config'
+import env from '../env.config'
 const User = database.user;
 
 async function signUp(req: Request, res: Response) {

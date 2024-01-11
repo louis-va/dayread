@@ -13,7 +13,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import database from './models';
 import authRoutes from './routes/auth.route'
 import { useJwtStrategy } from './config/passport';
-import env from './config/env.config'
+import env from './env.config'
 
 // Initialise express
 const app: Express = express();
@@ -101,3 +101,5 @@ app.use('/auth', authRoutes);
 app.listen(env.PORT, () => {
   console.log(`Server is running at http://localhost:${env.PORT}`);
 });
+
+export default app;
