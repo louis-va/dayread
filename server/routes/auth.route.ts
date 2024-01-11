@@ -1,5 +1,4 @@
-import express, { Request, Response } from 'express';
-import passport from 'passport'
+import express from 'express';
 import auth from '../controllers/auth.controller'
 import { checkDuplicateEmail, checkDuplicateUsername, validatePassword } from '../middlewares/validateSignUp';
 
@@ -118,16 +117,6 @@ router.post("/signin",
  */
 router.post("/signout",
   auth.signOut
-);
-
-router.get("/protected",
-  passport.authenticate("jwt", { session: false, failureRedirect: '' }),
-  (req: Request, res: Response) => {
-    res.status(200).json({
-      success: true,
-      msg: "You are successfully authenticated to this route!",
-    });
-  }
 );
 
 export default router;
