@@ -3,15 +3,20 @@ import Nav from "@/features/Nav";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import PopUpNewPost from "./PopUpNewPost";
+import DrawerNewPost from "./DrawerNewPost";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 interface LayoutProps {
   children?: ReactNode;
 }
 
 export const Layout = ({ children }: LayoutProps) => {
+  const isMobile = useMediaQuery("(max-width: 768px)");
+
   return (
     <div className="w-full flex justify-center overflow-x-hidden">
-      <PopUpNewPost />
+      {isMobile ? <DrawerNewPost /> : <PopUpNewPost />}
+
       <aside className="md:fixed md:left-0 md:p-5 md:h-full">
         <Nav />
       </aside>

@@ -7,6 +7,10 @@ import { useModal } from "@/context/ModalContext";
 export default function PopUpNewPost() {
   const { isModalOpen, closeModal } = useModal();
 
+  const handlePublier = () => {
+    closeModal();
+  };
+
   return (
     <>
       {isModalOpen && (
@@ -39,7 +43,11 @@ export default function PopUpNewPost() {
               <Typography as="span" className="text-muted-foreground text-sm">
                 Attention vous ne pourrez pas modifier votre post !
               </Typography>
-              <Button variant="secondary" className="self-end">
+              <Button
+                variant="secondary"
+                className="self-end"
+                onClick={handlePublier}
+              >
                 Publier
               </Button>
             </div>
