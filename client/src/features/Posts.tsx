@@ -27,12 +27,16 @@ export default function Posts() {
             Labore, hic.
           </Typography>
           <div className="flex">
-            <div>
-              <Icon icon="like" size={22} />
-            </div>
-            <Icon icon="message" size={22} />
+            <Icon icon="like" size={22} />
+            {/* <Icon icon="message" size={22} /> */}
             <Icon icon="send" size={22} />
           </div>
+          <Typography
+            as="span"
+            className="text-muted-foreground text-xs self-end"
+          >
+            141 mentions J'aime
+          </Typography>
         </div>
       </div>
     </div>
