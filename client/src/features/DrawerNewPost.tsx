@@ -21,7 +21,7 @@ export default function DrawerNewPost() {
   };
 
   return (
-    <Drawer open={isModalOpen} onDrag={closeModal}>
+    <Drawer open={isModalOpen} onClose={closeModal}>
       <DrawerOverlay onClick={closeModal} />
       <DrawerContent className="p-5 gap-5">
         <DrawerHeader>
