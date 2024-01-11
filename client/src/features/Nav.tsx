@@ -19,44 +19,46 @@ export default function Nav() {
 
   return (
     <nav className={`${navMobileClasses} ${navDesktopClasses}`}>
-      <div className="flex justify-around items-center md:flex md:flex-col md:items-start md:gap-5">
+      <div className="flex justify-around items-center md:flex md:flex-col md:items-start md:gap-10">
         <Link to="/" className="hidden hover:cursor-pointer md:block md:pl-6">
           <Logo size={50} />
         </Link>
 
-        <Link
-          to="/"
-          className={
-            buttonVariants({ variant: "ghost", size: "default" }) +
-            "flex gap-3 md:w-full md:justify-start"
-          }
-        >
-          <Icon icon="home" size={24} />
-          <Typography className="hidden md:block">Home</Typography>
-        </Link>
+        <div className="flex flex-col gap-3">
+          <Link
+            to="/"
+            className={
+              buttonVariants({ variant: "ghost", size: "default" }) +
+              "flex gap-3 md:w-full md:justify-start"
+            }
+          >
+            <Icon icon="home" size={24} />
+            <Typography className="hidden md:block">Home</Typography>
+          </Link>
 
-        <Button
-          variant="ghost"
-          className={
-            buttonVariants({ variant: "ghost", size: "default" }) +
-            "flex gap-3 md:w-full md:justify-start"
-          }
-          onClick={() => openModal()}
-        >
-          <Icon icon="newPost" size={24} />
-          <Typography className="hidden md:block">New Post</Typography>
-        </Button>
+          <Button
+            variant="ghost"
+            className={
+              buttonVariants({ variant: "ghost", size: "default" }) +
+              "flex gap-3 md:w-full md:justify-start"
+            }
+            onClick={() => openModal()}
+          >
+            <Icon icon="newPost" size={24} />
+            <Typography className="hidden md:block">New Post</Typography>
+          </Button>
 
-        <Link
-          to="/"
-          className={
-            buttonVariants({ variant: "ghost", size: "default" }) +
-            "flex gap-3 md:w-full md:justify-start"
-          }
-        >
-          <Icon icon="profile" size={24} />
-          <Typography className="hidden md:block">Profile</Typography>
-        </Link>
+          <Link
+            to="/"
+            className={
+              buttonVariants({ variant: "ghost", size: "default" }) +
+              "flex gap-3 md:w-full md:justify-start"
+            }
+          >
+            <Icon icon="profile" size={24} />
+            <Typography className="hidden md:block">Profile</Typography>
+          </Link>
+        </div>
       </div>
       <div className="hidden md:block md:pl-6">
         <ModeToggle />
