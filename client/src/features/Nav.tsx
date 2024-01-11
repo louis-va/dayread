@@ -46,6 +46,7 @@ export default function Nav() {
           <Icon icon="newPost" size={24} />
           <Typography className="hidden md:block">New Post</Typography>
         </Button>
+
         <Link
           to="/"
           className={

@@ -20,7 +20,7 @@ export default function NewPost() {
           <AvatarImage src="https://picsum.photos/200" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-        <Typography as="span" className="text-muted">
+        <Typography as="span" className="text-muted-foreground">
           Poster un DayPost...
         </Typography>
       </div>
