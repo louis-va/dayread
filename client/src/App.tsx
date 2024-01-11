@@ -1,3 +1,7 @@
+import { ThemeProvider } from "./components/ui/theme-provider";
+import Typography from "./features/Typography";
+import Avatars from "@/features/Avatars.tsx";
+
 import {
   Route,
   createBrowserRouter,
@@ -17,6 +21,7 @@ const router = createBrowserRouter(
 
 function App() {
   return (
+
     <>
       <RouterProvider router={router} />
     </>
