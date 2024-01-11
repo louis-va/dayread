@@ -98,8 +98,8 @@ useJwtStrategy()
 app.use('/auth', authRoutes);
 
 // Set port, listen for requests
-app.listen(env.PORT, () => {
+const server = app.listen(env.PORT, () => {
   console.log(`Server is running at http://localhost:${env.PORT}`);
 });
 
-export default app;
+export { app, server };
