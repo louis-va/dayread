@@ -12,7 +12,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 // Import routes, models & configs
 import database from './models';
 import authRoutes from './routes/auth.route'
-import { useJwtStrategy } from './config/passport';
+import { useJwtStrategy } from './middlewares/passport';
 import env from './env.config'
 
 // Initialise express

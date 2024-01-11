@@ -33,4 +33,8 @@ const useJwtStrategy = () => {
   }));
 }
 
-export { useJwtStrategy }
+const verifyAuth = () => {
+  passport.authenticate("jwt", { session: false, failureRedirect: env.LOGIN_REDIRECT })
+}
+
+export { useJwtStrategy, verifyAuth }
