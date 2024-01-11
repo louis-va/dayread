@@ -6,6 +6,7 @@ import { useModal } from "@/context/ModalContext";
 
 export default function PopUpNewPost() {
   const { isModalOpen, closeModal } = useModal();
+
   return (
     <>
       {isModalOpen && (
@@ -21,7 +22,7 @@ export default function PopUpNewPost() {
             Nouveau DayPost
           </Typography>
           <div
-            className="p-5 rounded-md bg-popover border-2 border-border w-1/3 flex flex-col gap-5 z-20"
+            className="p-5 rounded-md bg-popover border-2 border-border w-2/3 flex flex-col gap-5 z-20"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex gap-3 items-center ">
