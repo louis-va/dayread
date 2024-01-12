@@ -12,6 +12,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 // Import routes, models & configs
 import database from './models';
 import authRoutes from './routes/auth.route'
+import postRoutes from './routes/post.route'
 import { useJwtStrategy } from './middlewares/passport';
 import env from './env.config'
 
@@ -96,6 +97,7 @@ useJwtStrategy()
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/post', postRoutes);
 
 // Set port, listen for requests
 const server = app.listen(env.PORT, () => {
