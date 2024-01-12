@@ -2,13 +2,13 @@ import mongoose, { Document, Model, Schema, Types } from 'mongoose';
 import { IUser } from './user.model';
 import { IPost } from './post.model';
 
-interface ILike extends Document {
+interface IFavourite extends Document {
   post: Types.ObjectId | IPost;
   liked_by: Types.ObjectId | IUser;
   date: Date;
 }
 
-const LikeSchema = new Schema({
+const FavouriteSchema = new Schema({
   post: {
     type: Schema.Types.ObjectId,
     ref: 'Post'
@@ -20,6 +20,6 @@ const LikeSchema = new Schema({
   date: Date
 });
 
-const Like: Model<ILike> = mongoose.model<ILike>('Like', LikeSchema);
+const Favourite: Model<IFavourite> = mongoose.model<IFavourite>('Favourite', FavouriteSchema);
 
-export { ILike, Like }
+export { IFavourite, Favourite }

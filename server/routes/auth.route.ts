@@ -21,14 +21,19 @@ const router = express.Router();
  *             properties:
  *               email:
  *                 type: string
+ *                 example: johndoe@gmail.com
  *               password:
  *                 type: string
+ *                 example: pa$$$w0rd123!
  *               username:
  *                 type: string
+ *                 example: john-doe
  *               firstname:
  *                 type: string
+ *                 example: John
  *               lastname:
  *                 type: string
+ *                 example: Doe
  *             required:
  *               - email
  *               - password
@@ -70,18 +75,21 @@ router.post("/signup",
  *             properties:
  *               email:
  *                 type: string
+ *                 example: johndoe@gmail.com
  *               password:
  *                 type: string
+ *                 example: pa$$$w0rd123!
  *     responses:
  *       200:
- *         description: A user object.
+ *         description: User object.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 id:
- *                   type: string
+ *                   type: integer
+ *                   example: 0
  *                 email:
  *                   type: string
  *                   example: johndoe@gmail.com
