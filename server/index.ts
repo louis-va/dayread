@@ -75,7 +75,7 @@ app.use(function(req: Request, res: Response, next: NextFunction) {
 });
 
 // Log HTTP requests
-app.use(morgan('combined'));
+if (env.ENV !== 'test') app.use(morgan('combined'));
 
 // Connection to the database
 database.mongoose

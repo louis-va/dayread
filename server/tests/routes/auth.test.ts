@@ -4,14 +4,17 @@ import db from "../config/database";
 
 const agent = request.agent(app);
 
-beforeAll(async () => await db.connect());
+beforeAll(async () => {
+  await db.connect()
+});
+
 afterAll(async () => {
   await db.clear();
   await db.close();
   server.close();
 });
 
-describe("auth", () => {
+describe("Auth endpoints", () => {
   describe("POST /auth/signup", () => {
     test("Successful", async () => {
       const res = await agent
