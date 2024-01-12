@@ -48,7 +48,7 @@ export default function Nav() {
         </Button>
 
         <Link
-          to="/"
+          to="/profile"
           className={
             buttonVariants({ variant: "ghost", size: "default" }) +
             "flex gap-3 md:w-full md:justify-start"
