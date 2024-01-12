@@ -1,7 +1,9 @@
 import { Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import passport from 'passport'
-import { User } from '../models/user.model';
+import database from '../models';
+import { JwtPayload } from '../types/JwtPayload';
 import env from '../env.config'
+const User = database.user;
 
 /**
  * Extracts the jwt from a cookie
@@ -22,7 +24,7 @@ const useJwtStrategy = () => {
     algorithms: ["HS256"]
   }
   
-  passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
+  passport.use(new JwtStrategy(opts, async (jwt_payload: JwtPayload, done) => {
     try {
       const user = await User.findOne({ _id: jwt_payload.sub })
       if (user) return done(null, user)

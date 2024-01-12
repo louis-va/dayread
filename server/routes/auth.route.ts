@@ -1,5 +1,4 @@
-import express, { Request, Response } from 'express';
-import passport from 'passport'
+import express from 'express';
 import auth from '../controllers/auth.controller'
 import { checkDuplicateEmail, checkDuplicateUsername, validatePassword } from '../middlewares/validateSignUp';
 
@@ -22,14 +21,19 @@ const router = express.Router();
  *             properties:
  *               email:
  *                 type: string
+ *                 example: johndoe@gmail.com
  *               password:
  *                 type: string
+ *                 example: pa$$$w0rd123!
  *               username:
  *                 type: string
+ *                 example: john-doe
  *               firstname:
  *                 type: string
+ *                 example: John
  *               lastname:
  *                 type: string
+ *                 example: Doe
  *             required:
  *               - email
  *               - password
@@ -71,18 +75,21 @@ router.post("/signup",
  *             properties:
  *               email:
  *                 type: string
+ *                 example: johndoe@gmail.com
  *               password:
  *                 type: string
+ *                 example: pa$$$w0rd123!
  *     responses:
  *       200:
- *         description: A user object.
+ *         description: User object.
  *         content:
  *           application/json:
  *             schema:
  *               type: object
  *               properties:
  *                 id:
- *                   type: string
+ *                   type: integer
+ *                   example: 0
  *                 email:
  *                   type: string
  *                   example: johndoe@gmail.com
@@ -118,16 +125,6 @@ router.post("/signin",
  */
 router.post("/signout",
   auth.signOut
-);
-
-router.get("/protected",
-  passport.authenticate("jwt", { session: false, failureRedirect: '' }),
-  (req: Request, res: Response) => {
-    res.status(200).json({
-      success: true,
-      msg: "You are successfully authenticated to this route!",
-    });
-  }
 );
 
 export default router;

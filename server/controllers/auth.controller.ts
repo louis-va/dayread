@@ -2,7 +2,8 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import database from '../models';
-import env from '../env.config'
+import env from '../env.config';
+import { JwtPayload } from '../types/JwtPayload';
 const User = database.user;
 
 async function signUp(req: Request, res: Response) {
@@ -41,12 +42,14 @@ async function signIn(req: Request, res: Response) {
       message: "Invalid credentials.",
       error: "invalid_credentials"
     });
+
+    const payload: JwtPayload = {
+      sub: user.id,
+      iat: Date.now()
+    }
   
     const token = jwt.sign(
-      { 
-        sub: user.id,
-        iat: Date.now()
-      },
+      payload,
       env.JWT_SECRET,
       {
         algorithm: 'HS256',
