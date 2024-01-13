@@ -7,7 +7,7 @@
     "start": "NODE_ENV=production node dist/index.js",
     "dev": "NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "lint": "npx eslint .",
-    "test": "NODE_ENV=test jest --detectOpenHandles"
+    "test": "NODE_ENV=test NODE_NO_WARNINGS=1 jest --detectOpenHandles --silent"
   },
   "jest": {
     "preset": "ts-jest",

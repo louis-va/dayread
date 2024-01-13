@@ -3,7 +3,7 @@ import mongoose, { Mongoose, Model } from 'mongoose';
 import { IUser, User } from "./user.model";
 import { IPost, Post } from './post.model';
 import { IFollow, Follow } from './follow.model';
-import { ILike, Like } from './favourite.model';
+import { IFavourite, Favourite } from './favourite.model';
 
 mongoose.Promise = global.Promise;
 
@@ -12,7 +12,7 @@ interface Database {
     user: Model<IUser>;
     post: Model<IPost>;
     follow: Model<IFollow>;
-    like: Model<ILike>;
+    like: Model<IFavourite>;
 }
 
 const database: Database = {
@@ -20,7 +20,7 @@ const database: Database = {
     user: User,
     post: Post,
     follow: Follow,
-    like: Like
+    like: Favourite
 };
 
 export default database;
