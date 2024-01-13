@@ -22,19 +22,4 @@ async function checkValidContent(req: Request, res: Response, next: NextFunction
   }
 }
 
-async function checkValidPostId(req: Request, res: Response, next: NextFunction) {
-  try {
-    if (!req.params.id) {
-      return res.status(400).send({ 
-        message: "Missing id.",
-        error: "missing_post_id"
-      });
-    }
-
-    next();
-  } catch(err: any) {
-    return res.status(500).send({ message: err.message || "Some error occurred while validating post id" });
-  }
-}
-
-export { checkValidContent, checkValidPostId };
+export { checkValidContent };

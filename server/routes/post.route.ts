@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import post from '../controllers/post.controller'
-import { checkValidContent, checkValidPostId } from '../middlewares/validatePost';
+import { checkValidContent } from '../middlewares/validatePost';
 
 const router = express.Router();
 
@@ -31,7 +31,15 @@ const router = express.Router();
  *               - content
  *     responses:
  *       200:
- *         description: Post successfully created.
+ *         description: Post id.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: string
+ *                   example: 0
  *       400:
  *         description: Invalid request data.
  * 
@@ -104,8 +112,7 @@ router.post("/",
  */
 router.get("/:id",
   [
-    passport.authenticate("jwt", { session: false }),
-    checkValidPostId
+    passport.authenticate("jwt", { session: false })
   ],
   post.get
 );

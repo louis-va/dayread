@@ -18,7 +18,7 @@ async function add(req: Request, res: Response) {
 
     await post.save();
 
-    return res.status(200).send({ message: "Post successfully created." });
+    return res.status(200).send({ id: post._id });
   } catch (err) {
     return res.status(500).send({ message: err });
   }
@@ -26,17 +26,15 @@ async function add(req: Request, res: Response) {
 
 async function get(req: Request, res: Response) {
   try {
-    const post = await Post.findOne({ _id: req.params.id })
+    const post = await Post.findById(req.params.id)
 
-    if (!post) {
-      return res.status(404).send({ 
-        message: "Post not found.",
-        error: "post_not_found"
-      });
-    }
+    if (!post) return res.status(404).send({ 
+      message: "Post not found.",
+      error: "post_not_found"
+    });
 
     const [author, commentsNumber] = await Promise.all([
-        User.findOne({ _id: post.author }), 
+        User.findById(post.author), 
         Post.countDocuments({ commented_on: post._id })
       ]);
 
@@ -54,7 +52,11 @@ async function get(req: Request, res: Response) {
       created_date: post.created_date
     });
 
-  } catch (err) {
+  } catch (err: any) {
+    if (err.name === "CastError") return res.status(404).send({ 
+      message: "Post not found.",
+      error: "post_not_found"
+    });
     return res.status(500).send({ message: err });
   }
 }
