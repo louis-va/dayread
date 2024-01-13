@@ -2,7 +2,7 @@ import { Strategy as JwtStrategy, StrategyOptions } from 'passport-jwt'
 import passport from 'passport'
 import database from '../models';
 import { JwtPayload } from '../types/JwtPayload';
-import env from '../env.config'
+import env from '../../env.config'
 const User = database.user;
 
 /**

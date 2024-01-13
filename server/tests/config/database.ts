@@ -1,6 +1,6 @@
 import mongoose, { ConnectOptions } from "mongoose";
 import env from '../../env.config'
-import database from '../../models';
+import database from '../../src/models';
 
 const connect = async () => {
   await database.mongoose

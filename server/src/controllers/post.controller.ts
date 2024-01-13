@@ -4,7 +4,7 @@ import { IUser } from '../models/user.model';
 const Post = database.post;
 const User = database.user;
 
-async function add(req: Request, res: Response) {
+async function addPost(req: Request, res: Response) {
   try {
     const author = req.user as IUser
 
@@ -24,7 +24,7 @@ async function add(req: Request, res: Response) {
   }
 }
 
-async function get(req: Request, res: Response) {
+async function getPost(req: Request, res: Response) {
   try {
     const post = await Post.findById(req.params.id)
 
@@ -61,4 +61,4 @@ async function get(req: Request, res: Response) {
   }
 }
 
-export default { add, get }
+export default { addPost, getPost }

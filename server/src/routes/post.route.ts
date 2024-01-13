@@ -49,7 +49,7 @@ router.post("/",
     passport.authenticate("jwt", { session: false }),
     checkValidContent
   ],
-  post.add
+  post.addPost
 );
 
 /**
@@ -114,7 +114,7 @@ router.get("/:id",
   [
     passport.authenticate("jwt", { session: false })
   ],
-  post.get
+  post.getPost
 );
 
 export default router;
