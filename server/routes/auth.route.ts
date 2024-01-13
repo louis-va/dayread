@@ -88,7 +88,7 @@ router.post("/signup",
  *               type: object
  *               properties:
  *                 id:
- *                   type: integer
+ *                   type: string
  *                   example: 0
  *                 email:
  *                   type: string
