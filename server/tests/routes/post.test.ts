@@ -5,12 +5,9 @@ import db from "../config/database";
 
 const agent = request.agent(app);
 
-let sessionCookie = '';
-
 beforeAll(async () => {
   await db.connect()
-  sessionCookie = await createSession(agent)
-  console.log(sessionCookie)
+  await createSession(agent)
 });
 
 afterAll(async () => {
@@ -24,11 +21,49 @@ describe("Post endpoints", () => {
     test("Successful", async () => {
       const res = await agent
         .post("/post")
-        .set('Cookie', sessionCookie)
-        .send({ 
+        .send({
           content: "Today I ate a delicious apple."
         });
       expect(res.statusCode).toEqual(200);
     });
-  });    
+
+    test("Missing content", async () => {
+      const res = await agent
+        .post("/post")
+      expect(res.statusCode).toEqual(400);
+    });
+  });
+
+  describe("GET /post/:id", () => {
+    test("Successful", async () => {
+      const postRes = await agent
+        .post("/post")
+        .send({
+          content: "Today I ate a delicious apple."
+        });
+
+      const res = await agent
+        .get(`/post/${postRes.body.id}`)
+      expect(res.statusCode).toEqual(200);
+      expect(res.body).toBeTruthy();
+      expect((res: any) => {
+        res.body.id = postRes.body.id,
+        res.body.content = "Today I ate a delicious apple.",
+        res.body.is_comment = false,
+        res.body.commented_on = null
+      })
+    });
+
+    test("Incorrect id", async () => {
+      const res = await agent
+        .get(`/post/abc123`)
+      expect(res.statusCode).toEqual(404);
+    });
+
+    test("Missing id", async () => {
+      const res = await agent
+        .get(`/post/`)
+      expect(res.statusCode).toEqual(404);
+    });
+  });
 });
