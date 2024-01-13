@@ -26,12 +26,12 @@ const router = express.Router();
  *               commented_on:
  *                 type: string
  *                 description: Post id.
- *                 example: 0
+ *                 example: null
  *             required:
  *               - content
  *     responses:
  *       200:
- *         description: Post id.
+ *         description: Successful.
  *         content:
  *           application/json:
  *             schema:
@@ -39,7 +39,7 @@ const router = express.Router();
  *               properties:
  *                 id:
  *                   type: string
- *                   example: 0
+ *                   example: pid1111
  *       400:
  *         description: Invalid request data.
  * 
@@ -49,7 +49,7 @@ router.post("/",
     passport.authenticate("jwt", { session: false }),
     checkValidContent
   ],
-  post.add
+  post.addPost
 );
 
 /**
@@ -59,18 +59,18 @@ router.post("/",
  *     tags: 
  *      - Post
  *     summary: Fetch a post
- *     description: Fetch the post with the specified id.
+ *     description: Fetch the specified post.
  *     parameters:
  *      - in: path
  *        name: id
  *        required: true
  *        schema:
  *          type: string
- *          minimum: 1
+ *          minLength: 1
  *        description: The post id
  *     responses:
  *       200:
- *         description: Post object.
+ *         description: Successful.
  *         content:
  *           application/json:
  *             schema:
@@ -78,7 +78,7 @@ router.post("/",
  *               properties:
  *                 id:
  *                   type: string
- *                   example: 0
+ *                   example: pid1111
  *                 content:
  *                   type: string
  *                   example: Today I ate a delicious apple.
@@ -93,16 +93,16 @@ router.post("/",
  *                   properties:
  *                     id:
  *                       type: string
- *                       example: 0
+ *                       example: uid1111
  *                     username:
  *                       type: string
  *                       example: john-doe
  *                 is_comment:
  *                   type: boolean
- *                   example: true
+ *                   example: false
  *                 commented_on:
  *                   type: string
- *                   example: 0
+ *                   example: null
  *                 created_date:
  *                   type: date
  *                   example: 2023-01-11T15:34:21
@@ -114,7 +114,74 @@ router.get("/:id",
   [
     passport.authenticate("jwt", { session: false })
   ],
-  post.get
+  post.getPost
+);
+
+/**
+ * @swagger
+ * /post/{id}/comments:
+ *   get:
+ *     tags: 
+ *      - Post
+ *     summary: Fetch comments
+ *     description: Fetch the comments of the specified post.
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          minLength: 1
+ *        description: The post id
+ *     responses:
+ *       200:
+ *         description: Successful.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     example: pid2222
+ *                   content:
+ *                     type: string
+ *                     example: That's very cool!
+ *                   comments:
+ *                     type: integer
+ *                     example: 0
+ *                   favourites:
+ *                     type: integer
+ *                     example: 4
+ *                   author:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: uid2222
+ *                       username:
+ *                         type: string
+ *                         example: jack-smith
+ *                   is_comment:
+ *                     type: boolean
+ *                     example: true
+ *                   commented_on:
+ *                     type: string
+ *                     example: pid1111
+ *                   created_date:
+ *                     type: date
+ *                     example: 2023-01-11T15:34:21
+ *       400:
+ *         description: Invalid id.
+ * 
+ */
+router.get("/:id/comments",
+  [
+    passport.authenticate("jwt", { session: false })
+  ],
+  post.getComments
 );
 
 export default router;

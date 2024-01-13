@@ -10,10 +10,10 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJsdoc from 'swagger-jsdoc';
 
 // Import routes, models & configs
-import database from './models';
-import authRoutes from './routes/auth.route'
-import postRoutes from './routes/post.route'
-import { useJwtStrategy } from './middlewares/passport';
+import database from './src/models';
+import authRoutes from './src/routes/auth.route'
+import postRoutes from './src/routes/post.route'
+import { useJwtStrategy } from './src/middlewares/passport';
 import env from './env.config'
 
 // Initialise express
@@ -34,7 +34,7 @@ const options: swaggerJsdoc.OAS3Options = {
       },
     ],
   },
-  apis: ['./routes/*.ts'], // Path to your API routes files
+  apis: ['./src/routes/*.ts'], // Path to your API routes files
 };
 
 const specs = swaggerJsdoc(options);

@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import database from '../models';
-import env from '../env.config';
+import env from '../../env.config';
 import { JwtPayload } from '../types/JwtPayload';
 const User = database.user;
 
