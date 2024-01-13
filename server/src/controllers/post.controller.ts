@@ -40,7 +40,7 @@ async function getPost(req: Request, res: Response) {
       content: post.content,
       comments: commentsNumber,
       favourites: 0,
-      posted_by: {
+      author: {
         id: author?._id,
         username: author?.username
       },
@@ -77,7 +77,7 @@ async function getComments(req: Request, res: Response) {
           content: post.content,
           comments: commentsNumber,
           favourites: 0,
-          posted_by: {
+          author: {
             id: author?._id,
             username: author?.username
           },
