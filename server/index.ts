@@ -34,7 +34,7 @@ const options: swaggerJsdoc.OAS3Options = {
       },
     ],
   },
-  apis: ['./routes/*.ts'], // Path to your API routes files
+  apis: ['./src/routes/*.ts'], // Path to your API routes files
 };
 
 const specs = swaggerJsdoc(options);

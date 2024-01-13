@@ -81,7 +81,7 @@ router.post("/signup",
  *                 example: pa$$$w0rd123!
  *     responses:
  *       200:
- *         description: User object.
+ *         description: User successfully logged in.
  *         content:
  *           application/json:
  *             schema:

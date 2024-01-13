@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 import database from '../models';
 import { IUser } from '../models/user.model';
 const Post = database.post;
-const User = database.user;
 
 async function addPost(req: Request, res: Response) {
   try {
@@ -26,17 +25,15 @@ async function addPost(req: Request, res: Response) {
 
 async function getPost(req: Request, res: Response) {
   try {
-    const post = await Post.findById(req.params.id)
+    const post = await Post.findById(req.params.id).populate('author');
 
     if (!post) return res.status(404).send({ 
-      message: "Post not found.",
-      error: "post_not_found"
+      message: "Invalid id",
+      error: "invalid_id"
     });
 
-    const [author, commentsNumber] = await Promise.all([
-        User.findById(post.author), 
-        Post.countDocuments({ commented_on: post._id })
-      ]);
+    const commentsNumber = await Post.countDocuments({ commented_on: post._id })
+    const author = post.author as IUser
 
     return res.status(200).send({
       id: post._id,
@@ -54,11 +51,52 @@ async function getPost(req: Request, res: Response) {
 
   } catch (err: any) {
     if (err.name === "CastError") return res.status(404).send({ 
-      message: "Post not found.",
-      error: "post_not_found"
+      message: "Invalid id",
+      error: "invalid_id"
     });
     return res.status(500).send({ message: err });
   }
 }
 
-export default { addPost, getPost }
+async function getComments(req: Request, res: Response) {
+  try {
+    const posts = await Post.find({ commented_on: req.params.id }).populate('author');
+
+    if (!posts) return res.status(404).send({
+      message: "Invalid id",
+      error: "invalid_id"
+    });
+
+    const postsDetails = await Promise.all(
+      posts.map(async (post) => {
+        const commentsNumber = await Post.countDocuments({ commented_on: post._id });
+        const author = post.author as IUser
+
+        return {
+          id: post._id,
+          content: post.content,
+          comments: commentsNumber,
+          favourites: 0,
+          posted_by: {
+            id: author?._id,
+            username: author?.username
+          },
+          is_comment: post.is_comment,
+          commented_on: post.commented_on,
+          created_date: post.created_date
+        };
+      })
+    );
+
+    return res.status(200).send(postsDetails);
+
+  } catch (err: any) {
+    if (err.name === "CastError") return res.status(404).send({ 
+      message: "Invalid id",
+      error: "invalid_id"
+    });
+    return res.status(500).send({ message: err });
+  }
+}
+
+export default { addPost, getPost, getComments }
