@@ -32,7 +32,7 @@ export default function Nav() {
               "flex gap-3 md:w-full md:justify-start"
             }
           >
-            <Icon icon="home" size={24} />
+            <Icon icon="home" size={22} />
             <Typography className="hidden md:block">Home</Typography>
           </Link>
 
@@ -44,18 +44,18 @@ export default function Nav() {
             }
             onClick={() => openModal()}
           >
-            <Icon icon="newPost" size={24} />
+            <Icon icon="newPost" size={22} />
             <Typography className="hidden md:block">New Post</Typography>
           </Button>
 
           <Link
-            to="/"
+            to="/profile"
             className={
               buttonVariants({ variant: "ghost", size: "default" }) +
               "flex gap-3 md:w-full md:justify-start"
             }
           >
-            <Icon icon="profile" size={24} />
+            <Icon icon="profile" size={22} />
             <Typography className="hidden md:block">Profile</Typography>
           </Link>
         </div>
