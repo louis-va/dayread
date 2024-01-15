@@ -17,6 +17,15 @@ import {
 import { Input } from "@/components/ui/input";
 
 const FormSchema = z.object({
+  lastname: z.string().min(2, {
+    message: "Votre nom doit contenir au moins 2 caractères",
+  }),
+  firstname: z.string().min(2, {
+    message: "Votre prénom doit contenir au moins 2 caractères",
+  }),
+  username: z.string().min(2, {
+    message: "Votre pseudo doit contenir au moins 2 caractères",
+  }),
   mail: z
     .string()
     .min(2, {
@@ -28,12 +37,15 @@ const FormSchema = z.object({
   }),
 });
 
-export default function LoginForm() {
+export default function SignForm() {
   const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
+      lastname: "",
+      firstname: "",
+      username: "",
       mail: "",
       password: "",
     },
@@ -45,6 +57,9 @@ export default function LoginForm() {
       headers.append("Content-Type", "application/json");
 
       const payload = JSON.stringify({
+        lastname: data.lastname,
+        firstname: data.firstname,
+        username: data.username,
         email: data.mail,
         password: data.password,
       });
@@ -56,15 +71,13 @@ export default function LoginForm() {
         body: payload,
       };
 
-      console.log("payload", payload);
-
       const response = await fetch(
-        "http://localhost:8000/auth/signin",
+        "http://localhost:8000/auth/signup",
         options
       );
 
       if (response.status === 200) {
-        navigate("/");
+        navigate("/login");
       }
 
       if (!response.ok) throw new Error("An error occured during signup");
@@ -79,6 +92,45 @@ export default function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+        <FormField
+          control={form.control}
+          name="lastname"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Nom</FormLabel>
+              <FormControl>
+                <Input placeholder="Doe" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="firstname"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Prénom</FormLabel>
+              <FormControl>
+                <Input placeholder="Prénom" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Pseudo" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="mail"
@@ -107,7 +159,7 @@ export default function LoginForm() {
         />
 
         <Button variant="outline" type="submit">
-          Se connecter
+          S'inscrire
         </Button>
       </form>
     </Form>

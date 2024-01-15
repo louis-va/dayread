@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Logo from "@/components/ui/logo";
-import SignInForm from "@/features/forms/SignInForm";
+import SignForm from "@/features/forms/SignForm";
 
 export default function Signin() {
   return (
@@ -13,7 +13,7 @@ export default function Signin() {
           <CardTitle>S'incrire</CardTitle>
         </CardHeader>
         <CardContent>
-          <SignInForm />
+          <SignForm />
         </CardContent>
       </Card>
     </div>
