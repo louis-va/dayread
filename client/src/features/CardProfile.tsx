@@ -29,7 +29,7 @@ const CardProfile = ({userName, userPseudo, userEmail, userBio, userFollowers, u
                         {userPseudo}
                     </CardDescription>
                 </section>
-                <Avatars value={userEmail} size={64} style={'shape'}></Avatars>
+                <Avatars value={userEmail} size={64} style={'shape'} multiAvatars={true}/>
             </CardHeader>
             <CardContent>
                 <Typography as="p">{userBio}</Typography>
