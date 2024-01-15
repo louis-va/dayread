@@ -12,7 +12,10 @@ const UserProfile = () => {
                          userEmail={'unep*ute@gmail.com'}
                          userBio={'Je suis une p*te'}
                          userFollowers={199}
-                         userSubscribers={266}/>
+                         userSubscribers={266}
+                         listFollowers={'199 followers à afficher'}
+                         listSubscribers={'266 subscribers à afficher'}
+            />
             <MenuTabs/>
         </Layout>
     )

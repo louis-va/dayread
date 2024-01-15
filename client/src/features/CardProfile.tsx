@@ -1,5 +1,5 @@
 import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle,} from "@/components/ui/card";
-import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTrigger,} from "@/components/ui/dialog"
+import {Dialog, DialogContent, DialogHeader, DialogTrigger,} from "@/components/ui/dialog"
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs"
 import {Button} from "@/components/ui/button";
 import Typography from "@/features/Typography";
@@ -13,9 +13,11 @@ interface CardProfileProps {
     userBio: string;
     userFollowers: number;
     userSubscribers: number;
+    listFollowers: string
+    listSubscribers: string
 }
 
-const CardProfile = ({userName, userPseudo, userEmail, userBio, userFollowers, userSubscribers}: CardProfileProps) => {
+const CardProfile = ({userName, userPseudo, userEmail, userBio, userFollowers, userSubscribers, listFollowers, listSubscribers}: CardProfileProps) => {
     return (
         <Card className="bg-background border-none shadow-none w-full">
             <CardHeader className={'flex-row justify-between items-center'}>
@@ -31,16 +33,16 @@ const CardProfile = ({userName, userPseudo, userEmail, userBio, userFollowers, u
             </CardHeader>
             <CardContent>
                 <Typography as="p">{userBio}</Typography>
-                <Dialog id={'tupe'}>
+                <Dialog>
                     <DialogTrigger className="flex items-center">
                         <Typography className={'text-sm'} as="p">{userFollowers} followers</Typography>
                         <Typography className={'px-3'} as={'span'}>·</Typography>
                         <Typography className={'text-sm'} as="p">{userSubscribers} subscribers</Typography>
                     </DialogTrigger>
-                    <DialogContent>
+                    <DialogContent className={'h-1/2 lg:h-3/4'}>
                         <Tabs
                             defaultValue="followers"
-                            className="w-full h-full">
+                            className="w-full h-full pt-4">
                             <DialogHeader>
                                 <TabsList className="w-full justify-between py-6 rounded-md">
                                     < TabsTrigger
@@ -56,14 +58,12 @@ const CardProfile = ({userName, userPseudo, userEmail, userBio, userFollowers, u
                                     </TabsTrigger>
                                 </TabsList>
                             </DialogHeader>
-                            <DialogDescription as={'div'}>
                                 <TabsContent className={'h-full'} value="followers">
-                                    Grilles avec les followers
+                                    {listFollowers}
                                 </TabsContent>
                                 <TabsContent className={'h-full'} value="subscribers">
-                                    Grilles des subscribers
+                                    {listSubscribers}
                                 </TabsContent>
-                            </DialogDescription>
                         </Tabs>
                     </DialogContent>
                 </Dialog>
