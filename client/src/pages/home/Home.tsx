@@ -1,5 +1,5 @@
 import NewPost from "@/features/NewPost";
-import { ThemeProvider } from "../../components/ui/theme-provider";
+import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Layout } from "@/features/Layout";
 import Posts from "@/features/Posts";
 

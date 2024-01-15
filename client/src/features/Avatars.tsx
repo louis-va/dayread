@@ -30,14 +30,14 @@ const Avatars = ({children, icon, multiAvatars, ...props}: AvatarsProps) => {
     }
 
     return (
-        <section>
+        <>
             {multiAvatars && (
-                <section className={'flex flex-row items-center w-fit relative'}>
-                    <Avvvatars {...props}>
+                <section className={'flex flex-row items-center relative'}>
+                    <Avvvatars {...props} border={true} borderColor={'#27272a'}>
                         {children}
                     </Avvvatars>
                     <section className="absolute top-0 left-5">
-                        <Avvvatars {...props}>
+                        <Avvvatars {...props} border={true} borderColor={'#27272a'}>
                             {children}
                         </Avvvatars>
                     </section>
@@ -55,7 +55,7 @@ const Avatars = ({children, icon, multiAvatars, ...props}: AvatarsProps) => {
                     </Button>
                 </section>
             )}
-        </section>
+        </>
     );
 }
 
