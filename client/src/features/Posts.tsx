@@ -2,6 +2,8 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Typography from "./Typography";
 import Icon from "@/components/ui/icons";
 
+// TODO: Add interface for props and connect to api
+
 export default function Posts() {
   return (
     <div className="py-5 border-border border-b-2 flex gap-3">
