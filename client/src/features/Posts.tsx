@@ -1,10 +1,18 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Typography from "./Typography";
 import Icon from "@/components/ui/icons";
+import TimeElapsedComponent from "./fonctions/TimeElapsed";
 
 // TODO: Add interface for props and connect to api
 
-export default function Posts() {
+interface PostProps {
+  content: string;
+  favourites: number;
+  username: string;
+  created_date: Date;
+}
+
+const Posts = ({ content, favourites, username, created_date }: PostProps) => {
   return (
     <div className="py-5 border-border border-b-2 flex gap-3">
       <div>
@@ -13,20 +21,18 @@ export default function Posts() {
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex justify-between">
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex w-full justify-between">
           <Typography as="span" className="font-bold text-sm">
-            bSchutters
+            {username}
           </Typography>
           <Typography as="span" className="text-muted-foreground text-sm">
-            18h
+            <TimeElapsedComponent startTime={created_date} />
           </Typography>
         </div>
         <div className="flex flex-col gap-3">
           <Typography as="span" className="text-sm">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quam,
-            cupiditate. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-            Labore, hic.
+            {content}
           </Typography>
           <div className="flex -ml-2">
             <Icon icon="like" size={22} />
@@ -34,10 +40,12 @@ export default function Posts() {
             <Icon icon="send" size={22} />
           </div>
           <Typography as="span" className="text-muted-foreground text-xs">
-            141 mentions J'aime
+            {favourites} likes
           </Typography>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default Posts;
