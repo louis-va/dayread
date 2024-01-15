@@ -30,12 +30,12 @@ const Avatars = ({ children, icon, multiAvatars, ...props }: AvatarsProps) => {
   return (
     <>
       {multiAvatars && (
-        <section className={"flex flex-row items-center relative"}>
-          <Avvvatars {...props} border={true} borderColor={"#27272a"}>
+        <section className={"flex flex-row items-center relative border-border border-2 rounded-full"}>
+          <Avvvatars {...props}>
             {children}
           </Avvvatars>
-          <section className="absolute top-0 left-5">
-            <Avvvatars {...props} border={true} borderColor={"#27272a"}>
+          <section className="absolute top-0 left-5 border-border border-2 rounded-full">
+            <Avvvatars {...props}>
               {children}
             </Avvvatars>
           </section>
