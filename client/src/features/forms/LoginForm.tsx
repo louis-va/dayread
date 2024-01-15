@@ -78,7 +78,7 @@ export default function LoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-4/5 space-y-6">
         <FormField
           control={form.control}
           name="mail"
@@ -106,7 +106,7 @@ export default function LoginForm() {
           )}
         />
 
-        <Button variant="outline" type="submit">
+        <Button variant="secondary" type="submit" className="w-full">
           Se connecter
         </Button>
       </form>

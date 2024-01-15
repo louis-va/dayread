@@ -1,21 +1,40 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import Logo from "@/components/ui/logo";
+import Typography from "@/features/Typography";
 import LoginForm from "@/features/forms/LoginForm";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Welcome() {
   return (
-    <div className="p-10 flex flex-col gap-10 justify-center items-center w-full">
-      <div className="flex">
-        <Logo size={40} />
+    <div className="flex h-screen">
+      <div className="hidden h-full p-10 md:flex md:flex-col md:justify-between md:border-r md:border-border md:bg-popover md:w-1/2">
+        <div className="flex gap-2">
+          <Logo size={30} />
+          <Typography as="span" className="text-xl font-medium">
+            DayRead
+          </Typography>
+        </div>
+        <Typography as="p" className="font-medium w-2/3">
+          "Partager c'est aimer !"
+        </Typography>
       </div>
-      <Card className="w-full md:w-1/3">
-        <CardHeader className="w-full items-center">
-          <CardTitle>S'incrire</CardTitle>
-        </CardHeader>
-        <CardContent>
+
+      <div className="flex flex-col w-full md:w-1/2 h-full p-5 md:p-10 ">
+        <div className="self-end">
+          <Button variant="link">
+            <Link to="/signin">S'inscrire</Link>
+          </Button>
+        </div>
+        <div className="h-full w-full flex  flex-col items-center justify-center gap-8">
+          <Typography
+            as="h1"
+            className="font-bold text-2xl md:text-4xl border-b-4 border-foreground pb-2"
+          >
+            Se connecter
+          </Typography>
           <LoginForm />
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }
