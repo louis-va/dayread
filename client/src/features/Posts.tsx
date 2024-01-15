@@ -26,15 +26,12 @@ export default function Posts() {
             cupiditate. Lorem ipsum dolor sit amet consectetur adipisicing elit.
             Labore, hic.
           </Typography>
-          <div className="flex">
+          <div className="flex -ml-2">
             <Icon icon="like" size={22} />
             {/* <Icon icon="message" size={22} /> */}
             <Icon icon="send" size={22} />
           </div>
-          <Typography
-            as="span"
-            className="text-muted-foreground text-xs self-end"
-          >
+          <Typography as="span" className="text-muted-foreground text-xs">
             141 mentions J'aime
           </Typography>
         </div>

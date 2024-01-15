@@ -19,12 +19,12 @@ export default function Nav() {
 
   return (
     <nav className={`${navMobileClasses} ${navDesktopClasses}`}>
-      <div className="flex justify-around items-center md:flex md:flex-col md:items-start md:gap-10">
+      <div className="flex justify-center items-center md:flex md:flex-col md:items-start md:gap-10">
         <Link to="/" className="hidden hover:cursor-pointer md:block md:pl-6">
           <Logo size={50} />
         </Link>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex md:flex-col gap-3 justify-around w-full">
           <Link
             to="/"
             className={
@@ -58,6 +58,17 @@ export default function Nav() {
             <Icon icon="profile" size={22} />
             <Typography className="hidden md:block">Profile</Typography>
           </Link>
+
+          <Button
+            variant="ghost"
+            className={
+              buttonVariants({ variant: "ghost", size: "default" }) +
+              "flex gap-3 md:w-full md:justify-start"
+            }
+          >
+            <Icon icon="logout" size={22} />
+            <Typography className="hidden md:block">Logout</Typography>
+          </Button>
         </div>
       </div>
       <div className="hidden md:block md:pl-6">
