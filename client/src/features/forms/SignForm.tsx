@@ -91,7 +91,7 @@ export default function SignForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-4/5 space-y-6">
         <FormField
           control={form.control}
           name="lastname"
@@ -158,7 +158,7 @@ export default function SignForm() {
           )}
         />
 
-        <Button variant="outline" type="submit">
+        <Button variant="secondary" type="submit" className="w-full">
           S'inscrire
         </Button>
       </form>
