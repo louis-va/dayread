@@ -17,6 +17,29 @@ export default function Nav() {
 
   const { openModal } = useModal();
 
+  const handleLogOut = async () => {
+    try {
+      const headers = new Headers();
+      headers.append("Content-Type", "application/json");
+
+      const options = {
+        method: "POST",
+        credentials: "include" as RequestCredentials,
+        headers: headers,
+      };
+
+      const response = await fetch(
+        "http://localhost:8000/auth/signout",
+        options
+      );
+
+      const body = await response.json();
+      console.log("body:", body);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <nav className={`${navMobileClasses} ${navDesktopClasses}`}>
       <div className="flex justify-center items-center md:flex md:flex-col md:items-start md:gap-10">
@@ -65,6 +88,7 @@ export default function Nav() {
               buttonVariants({ variant: "ghost", size: "default" }) +
               "flex gap-3 md:w-full md:justify-start"
             }
+            onClick={handleLogOut}
           >
             <Icon icon="logout" size={22} />
             <Typography className="hidden md:block">Logout</Typography>
