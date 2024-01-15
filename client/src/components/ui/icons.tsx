@@ -1,6 +1,7 @@
 import {
   LuHeart,
   LuHome,
+  LuLogOut,
   LuMenu,
   LuMessageCircle,
   LuMoreHorizontal,
@@ -20,7 +21,8 @@ interface IconProps {
     | "burger"
     | "retweet"
     | "message"
-    | "send";
+    | "send"
+    | "logout";
   size?: 22 | 32 | 64;
   notif?: boolean;
   className?: undefined | string;
@@ -98,6 +100,11 @@ export default function Icon({
             className={`${className} p-2 rounded-full flex items-center justify-center hover:bg-card ease-in-out duration-300`}
           >
             <LuSend size={size} />
+          </div>
+        )}
+        {icon === "logout" && (
+          <div className={className}>
+            <LuLogOut size={size} />
           </div>
         )}
       </div>

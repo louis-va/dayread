@@ -58,6 +58,17 @@ export default function Nav() {
             <Icon icon="profile" size={22} />
             <Typography className="hidden md:block">Profile</Typography>
           </Link>
+
+          <Button
+            variant="ghost"
+            className={
+              buttonVariants({ variant: "ghost", size: "default" }) +
+              "flex gap-3 md:w-full md:justify-start"
+            }
+          >
+            <Icon icon="logout" size={22} />
+            <Typography className="hidden md:block">Logout</Typography>
+          </Button>
         </div>
       </div>
       <div className="hidden md:block md:pl-6">
