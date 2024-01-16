@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import Typography from "@/features/Typography";
 import Avatars from "@/features/Avatars";
 import { Link } from "react-router-dom";
+import ListFllwrsSubs from "@/features/ListFllwrsSubs";
 
 interface CardProfileProps {
   userName: string;
@@ -36,8 +37,6 @@ const CardProfile = ({
   userBio,
   userFollowers,
   userSubscribers,
-  listFollowers,
-  listSubscribers,
 }: CardProfileProps) => {
   return (
     <Card className="bg-background border-none shadow-none w-full">
@@ -61,10 +60,10 @@ const CardProfile = ({
               ·
             </Typography>
             <Typography className={"text-sm"} as="p">
-              {userSubscribers} subscribers
+              {userSubscribers} suivi(e)s
             </Typography>
           </DialogTrigger>
-          <DialogContent className={"h-1/2 lg:h-3/4"}>
+          <DialogContent className={"h-full md:h-3/4 overflow-hidden"}>
             <Tabs defaultValue="followers" className="w-full h-full pt-4">
               <DialogHeader>
                 <TabsList className="w-full justify-between py-6 rounded-md">
@@ -72,21 +71,39 @@ const CardProfile = ({
                     value="followers"
                     className={"py-2 rounded-md w-full"}
                   >
-                    <Typography>followers</Typography>
+                    <Typography> {userFollowers} followers</Typography>
                   </TabsTrigger>
                   <TabsTrigger
                     value="subscribers"
                     className={"py-2 rounded-md w-full"}
                   >
-                    <Typography>subscribers</Typography>
+                    <Typography> {userSubscribers} suivi(e)s</Typography>
                   </TabsTrigger>
                 </TabsList>
               </DialogHeader>
-              <TabsContent className={"h-full"} value="followers">
-                {listFollowers}
+              <TabsContent
+                className={"h-full p-2 overflow-auto md:h-3/4"}
+                value="followers"
+              >
+                <ul>
+                  <ListFllwrsSubs
+                    variant="followers"
+                    userName="John Doe"
+                    userPseudo="john_doe"
+                  />
+                </ul>
               </TabsContent>
-              <TabsContent className={"h-full"} value="subscribers">
-                {listSubscribers}
+              <TabsContent
+                className={"h-full p-2 overflow-auto md:h-3/4"}
+                value="subscribers"
+              >
+                <ul className={" h-1/2 overflow-auto lg:h-3/4"}>
+                  <ListFllwrsSubs
+                    variant="subscribers"
+                    userName="Jane Smith"
+                    userPseudo="jane_smith"
+                  />
+                </ul>
               </TabsContent>
             </Tabs>
           </DialogContent>
@@ -94,7 +111,7 @@ const CardProfile = ({
       </CardContent>
       <CardFooter className={"px-0 md:justify-center"}>
         <Button className="w-full" variant="outline" asChild={true} size={"lg"}>
-          <Link to={"/"}>
+          <Link to={"/profil/update"}>
             <Typography as="p">Modifier le profil</Typography>
           </Link>
         </Button>
@@ -102,5 +119,4 @@ const CardProfile = ({
     </Card>
   );
 };
-
 export default CardProfile;
