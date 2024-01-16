@@ -8,7 +8,10 @@ function Home() {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/post/${id}`, { method: "GET" })
+    fetch("http://localhost:8000/post/65a6e7dd464ec41eac67d345", {
+      method: "GET",
+      credentials: "include",
+    })
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.log("error", error));
