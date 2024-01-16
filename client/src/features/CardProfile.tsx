@@ -51,7 +51,7 @@ const CardProfile = ({
                             {userSubscribers} suivi(e)s
                         </Typography>
                     </DialogTrigger>
-                    <DialogContent className={"h-1/2 lg:h-3/4"}>
+                    <DialogContent className={"h-full md:h-3/4 overflow-hidden"}>
                         <Tabs defaultValue="followers" className="w-full h-full pt-4">
                             <DialogHeader>
                                 <TabsList className="w-full justify-between py-6 rounded-md">
@@ -69,46 +69,15 @@ const CardProfile = ({
                                     </TabsTrigger>
                                 </TabsList>
                             </DialogHeader>
-                            <TabsContent className={"h-full"} value="followers">
-                                <ul className={'pt-6 h-1/2 overflow-auto lg:h-3/4 '}>
+                            <TabsContent className={"h-full p-2 overflow-auto md:h-3/4"} value="followers">
+                                <ul>
                                     <ListFllwrsSubs variant="followers"
                                                     userName="John Doe"
                                                     userPseudo="john_doe"
                                     />
-                                    <ListFllwrsSubs variant="followers"
-                                                    userName="John Doe"
-                                                    userPseudo="john_doe"
-                                    /> <ListFllwrsSubs variant="followers"
-                                                       userName="John Doe"
-                                                       userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                /> <ListFllwrsSubs variant="followers"
-                                                   userName="John Doe"
-                                                   userPseudo="john_doe"
-                                />
                                 </ul>
                             </TabsContent>
-                            <TabsContent className={"h-full"} value="subscribers">
+                            <TabsContent className={"h-full p-2 overflow-auto md:h-3/4"} value="subscribers">
                                 <ul className={'pt-6 h-1/2 overflow-auto lg:h-3/4'}>
                                     <ListFllwrsSubs variant="subscribers"
                                                     userName="Jane Smith"
@@ -130,5 +99,4 @@ const CardProfile = ({
         </Card>
     );
 };
-
 export default CardProfile;
