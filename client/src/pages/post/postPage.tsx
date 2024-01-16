@@ -27,7 +27,6 @@ function PostPage() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data.created_date);
         setPostData(data);
       })
       .catch((error) => console.log("error", error));

@@ -14,15 +14,21 @@ const TimeElapsedComponent = ({ startTime }: TimeElapsedProps) => {
 
       const timeDifference = currentDate - startDate;
 
-      const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+      const seconds = Math.floor(timeDifference / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
       const days = Math.floor(hours / 24);
 
       let result = "";
 
       if (days > 0) {
         result += `${days} jour${days > 1 ? "s" : ""}`;
-      } else {
+      } else if (hours > 0) {
         result += `${hours} heure${hours > 1 ? "s" : ""}`;
+      } else if (minutes > 0) {
+        result += `${minutes} minute${minutes > 1 ? "s" : ""}`;
+      } else {
+        result += `${seconds} seconde${seconds > 1 ? "s" : ""}`;
       }
 
       setTimeElapsed(result);
