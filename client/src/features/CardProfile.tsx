@@ -91,7 +91,7 @@ const CardProfile = ({
             </CardContent>
             <CardFooter className={"px-0 md:justify-center"}>
                 <Button className="w-full" variant="outline" asChild={true} size={"lg"}>
-                    <Link to={"/"}>
+                    <Link to={"/profil/update"}>
                         <Typography as="p">Modifier le profil</Typography>
                     </Link>
                 </Button>
