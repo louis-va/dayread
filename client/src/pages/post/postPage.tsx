@@ -3,7 +3,9 @@ import Icon from "@/components/ui/icons";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Layout } from "@/features/Layout";
 import Posts from "@/features/Posts";
+import Typography from "@/features/Typography";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 interface PostProps {
   content: string;
@@ -33,9 +35,14 @@ function PostPage() {
 
   return (
     <Layout>
-      <Button variant="ghostIcon" size="icon">
-        <Icon icon="logout" size={22} />
-      </Button>
+      <Link to="/">
+        <Button variant="outline" size="sm" className="flex gap-3">
+          <Icon icon="retour" size={20} />
+          <Typography as={"span"} className={"text-sm"}>
+            Retour
+          </Typography>
+        </Button>
+      </Link>
       {postData ? (
         <Posts
           content={postData.content}
