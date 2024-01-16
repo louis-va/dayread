@@ -1,4 +1,5 @@
 import {
+  LuArrowLeft,
   LuHeart,
   LuHome,
   LuLogOut,
@@ -22,8 +23,9 @@ interface IconProps {
     | "retweet"
     | "message"
     | "send"
-    | "logout";
-  size?: 22 | 32 | 64;
+    | "logout"
+    | "retour";
+  size?: number;
   notif?: boolean;
   className?: undefined | string;
 }
@@ -34,18 +36,6 @@ export default function Icon({
   notif = false,
   className,
 }: IconProps) {
-  switch (size) {
-    case 22:
-      size = 22;
-      break;
-    case 32:
-      size = 32;
-      break;
-    case 64:
-      size = 64;
-      break;
-  }
-
   if (notif === false) {
     return (
       <div className="icons">
@@ -105,6 +95,11 @@ export default function Icon({
         {icon === "logout" && (
           <div className={className}>
             <LuLogOut size={size} />
+          </div>
+        )}
+        {icon === "retour" && (
+          <div className={className}>
+            <LuArrowLeft size={size} />
           </div>
         )}
       </div>
