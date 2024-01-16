@@ -10,6 +10,7 @@ import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./main.css";
 import SignIn from "./pages/signin/SignIn";
 import Login from "./pages/login/Login";
+import PostPage from "./pages/post/postPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path="profile" element={<UserProfile />} />
       <Route path="signin" element={<SignIn />} />
       <Route path="login" element={<Login />} />
+      <Route path="postpage" element={<PostPage />} />
     </Route>
   )
 );
