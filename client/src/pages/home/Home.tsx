@@ -2,8 +2,9 @@ import NewPost from "@/features/NewPost";
 import { Layout } from "@/features/Layout";
 import Posts from "@/features/Posts";
 import { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { Skeleton } from "@/components/ui/skeleton";
+import { Toaster } from "@/components/ui/toaster";
 
 interface PostProps {
   content: string;
@@ -26,10 +27,10 @@ function Home() {
     })
       .then((response) => {
         if (response.status === 401) {
-          navigate('/')
+          navigate("/login");
         }
         return response.json();
-      } )
+      })
       .then((data) => {
         setPostData(data);
       })
@@ -38,6 +39,7 @@ function Home() {
 
   return (
     <Layout>
+      <Toaster />
       <NewPost />
       {postData ? (
         <Posts
@@ -47,7 +49,7 @@ function Home() {
           created_date={new Date(postData.created_date)}
         />
       ) : (
-        <div className="flex gap-3 w-full">
+        <div className="flex gap-3 w-full py-5">
           <Skeleton className="w-[40px] h-[40px] rounded-full bg-border" />
           <div className="flex flex-col gap-3 w-full">
             <div className="flex w-full justify-between">

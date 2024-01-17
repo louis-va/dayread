@@ -3,12 +3,52 @@ import Typography from "./Typography";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";
+import { SetStateAction, useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function PopUpNewPost() {
   const { isModalOpen, closeModal } = useModal();
+  const { toast } = useToast();
+
+  const [contenuTextarea, setContenuTextarea] = useState("");
+
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
+    setContenuTextarea(e.target.value);
+  };
 
   const handlePublier = () => {
-    closeModal();
+    const dataToSend = {
+      content: contenuTextarea,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+      body: JSON.stringify(dataToSend),
+    };
+
+    fetch("http://localhost:8000/post/", requestOptions)
+      .then((response) => {
+        if (response.status === 200) {
+          setContenuTextarea("");
+          toast({
+            description: "Votre post à bien été publié !",
+          });
+          closeModal();
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            `La requête a échoué avec le statut ${response.status}`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
   };
 
   return (
@@ -38,7 +78,11 @@ export default function PopUpNewPost() {
                 bSchutters
               </Typography>
             </div>
-            <Textarea placeholder="Nouveau post..."></Textarea>
+            <Textarea
+              placeholder="Nouveau post..."
+              value={contenuTextarea}
+              onChange={handleChange}
+            ></Textarea>
             <div className="flex justify-between items-center">
               <Typography as="span" className="text-muted-foreground text-sm">
                 Attention vous ne pourrez pas modifier votre post !
