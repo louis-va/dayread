@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
-import database from '../models';
 import { IUser } from '../models/user.model';
+import { calculateLikesAndComments } from '../utils/post.utils';
+import database from '../models';
 const Post = database.post;
 
 async function addPost(req: Request, res: Response) {
@@ -32,23 +33,10 @@ async function getPost(req: Request, res: Response) {
       error: "invalid_id"
     });
 
-    const commentsNumber = await Post.countDocuments({ commented_on: post._id })
-    const author = post.author as IUser
+    const postDetails = await calculateLikesAndComments([post])
 
-    return res.status(200).send({
-      id: post._id,
-      content: post.content,
-      comments: commentsNumber,
-      favourites: 0,
-      author: {
-        id: author?._id,
-        username: author?.username
-      },
-      is_comment: post.is_comment,
-      commented_on: post.commented_on,
-      created_date: post.created_date
-    });
-
+    return res.status(200).send(postDetails[0]);
+    
   } catch (err: any) {
     if (err.name === "CastError") return res.status(404).send({ 
       message: "Invalid id",
@@ -67,26 +55,7 @@ async function getComments(req: Request, res: Response) {
       error: "invalid_id"
     });
 
-    const postsDetails = await Promise.all(
-      posts.map(async (post) => {
-        const commentsNumber = await Post.countDocuments({ commented_on: post._id });
-        const author = post.author as IUser
-
-        return {
-          id: post._id,
-          content: post.content,
-          comments: commentsNumber,
-          favourites: 0,
-          author: {
-            id: author?._id,
-            username: author?.username
-          },
-          is_comment: post.is_comment,
-          commented_on: post.commented_on,
-          created_date: post.created_date
-        };
-      })
-    );
+    const postsDetails = await calculateLikesAndComments(posts)
 
     return res.status(200).send(postsDetails);
 
