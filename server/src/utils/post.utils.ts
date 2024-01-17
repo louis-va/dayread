@@ -2,6 +2,7 @@ import { IPost } from "../models/post.model";
 import { IUser } from "../models/user.model";
 import database from '../models';
 const Post = database.post;
+const Like = database.like;
 
 /**
  * Takes in an array of posts, calculates the number of likes and comments for each post,
@@ -12,15 +13,18 @@ const Post = database.post;
 export async function calculateLikesAndComments(posts: IPost[]) {
   const structuredPosts = await Promise.all(
     posts.map(async (post: any) => {
-      const commentsNumber = await Post.countDocuments({ commented_on: post._id });
       const author = post.author as IUser
-      // TODO: calculate number of likes
+
+      const [commentsNumber, favouritesNumber] = await Promise.all([
+        await Post.countDocuments({ commented_on: post._id }),
+        await Like.countDocuments({ post: post._id }),
+      ]);
 
       return {
         id: post._id,
         content: post.content,
         comments: commentsNumber,
-        favourites: 0,
+        favourites: favouritesNumber,
         author: {
           id: author?._id,
           username: author?.username
