@@ -2,6 +2,7 @@ import NewPost from "@/features/NewPost";
 import { Layout } from "@/features/Layout";
 import Posts from "@/features/Posts";
 import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface PostProps {
@@ -16,18 +17,24 @@ interface PostProps {
 
 function Home() {
   const [postData, setPostData] = useState<PostProps>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch("http://localhost:8000/post/65a6fbf76fc237aa2e6200f1", {
       method: "GET",
       credentials: "include",
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status === 401) {
+          navigate('/')
+        }
+        return response.json();
+      } )
       .then((data) => {
         setPostData(data);
       })
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [navigate]);
 
   return (
     <Layout>
