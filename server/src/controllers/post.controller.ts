@@ -68,4 +68,18 @@ async function like(req: Request, res: Response) {
   }
 }
 
-export default { addPost, getPost, getComments, like }
+async function unlike(req: Request, res: Response) {
+  try {
+    const user = req.user as IUser
+
+    const like = await Like.findOne({ liked_by: user.id, post: req.params.id })
+    await like!.deleteOne()
+
+    return res.status(200).send({ message: 'Post successfully unliked.'});
+
+  } catch (err: any) {
+    return res.status(500).send({ message: err });
+  }
+}
+
+export default { addPost, getPost, getComments, like, unlike }

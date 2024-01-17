@@ -193,7 +193,7 @@ router.get("/:id/comments",
  *     tags: 
  *      - Post
  *     summary: Like a post
- *     description: Like the specified post.
+ *     description: Like a post if it is not already liked.
  *     parameters:
  *      - in: path
  *        name: id
@@ -218,6 +218,40 @@ router.post("/:id/like",
     checkIsPostLiked
   ],
   post.like
+);
+
+/**
+ * @swagger
+ * /post/{id}/unlike:
+ *   post:
+ *     tags: 
+ *      - Post
+ *     summary: Unlike a post
+ *     description: Unlike a post if it is liked.
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          minLength: 1
+ *        description: The post id
+ *     responses:
+ *       200:
+ *         description: Successful.
+ *       400:
+ *         description: Post not liked.
+ *       404:
+ *         description: Invalid id.
+ * 
+ */
+router.post("/:id/unlike",
+  [
+    passport.authenticate("jwt", { session: false }),
+    checkExistingPost,
+    checkIsPostNotLiked
+  ],
+  post.unlike
 );
 
 export default router;
