@@ -13,6 +13,7 @@ import swaggerJsdoc from 'swagger-jsdoc';
 import database from './src/models';
 import authRoutes from './src/routes/auth.route'
 import postRoutes from './src/routes/post.route'
+import userRoutes from './src/routes/user.route'
 import { useJwtStrategy } from './src/middlewares/passport';
 import env from './env.config'
 
@@ -30,11 +31,11 @@ const options: swaggerJsdoc.OAS3Options = {
     },
     servers: [
       {
-        url: 'http://localhost:8000', // Your server URL
+        url: 'http://localhost:8000',
       },
     ],
   },
-  apis: ['./src/routes/*.ts'], // Path to your API routes files
+  apis: ['./src/routes/*.ts'],
 };
 
 const specs = swaggerJsdoc(options);
@@ -98,6 +99,7 @@ useJwtStrategy()
 // Routes
 app.use('/auth', authRoutes);
 app.use('/post', postRoutes);
+app.use('/user', userRoutes);
 
 // Set port, listen for requests
 const server = app.listen(env.PORT, () => {
