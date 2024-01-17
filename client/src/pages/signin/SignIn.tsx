@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import Logo from "@/components/ui/logo";
+import Logo from "@/components/ui/logo/logo";
 import Typography from "@/features/Typography";
 import SignForm from "@/features/forms/SignForm";
 import { Link } from "react-router-dom";

@@ -3,7 +3,7 @@
 import Typography from "@/features/Typography";
 import { ModeToggle } from "./mode-toggle";
 import Icon from "../components/ui/icons";
-import Logo from "@/components/ui/logo";
+import Logo from "@/components/ui/logo/logo";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";

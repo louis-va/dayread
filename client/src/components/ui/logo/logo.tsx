@@ -6,6 +6,7 @@ interface LogoProps {
 export default function Logo({ size, className }: LogoProps) {
   return (
     <svg
+    role="logo"
       width={size}
       height={size}
       viewBox="0 0 248 254"

@@ -1,4 +1,4 @@
-import Logo from "@/components/ui/logo";
+import Logo from "@/components/ui/logo/logo";
 import Nav from "@/features/Nav";
 import { ReactNode } from "react";
 import { Link } from "react-router-dom";
