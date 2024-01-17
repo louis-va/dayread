@@ -2,17 +2,17 @@ export const createSession = async (agent: any) => {
   await agent
     .post("/auth/signup")
     .send({ 
-      email: "test-user@test.com",
+      email: "global-test-user@test.com",
       password: "testPassword1234!",
-      username: "test-pseudo",
-      firstname: "Test",
+      username: "global-test-pseudo",
+      firstname: "Global",
       lastname: "User"
     });
   
   const signinRes = await agent
     .post("/auth/signin")
     .send({ 
-      email: "test-user@test.com",
+      email: "global-test-user@test.com",
       password: "testPassword1234!",
     });
 
