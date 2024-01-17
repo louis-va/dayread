@@ -12,12 +12,53 @@ import { Avatar } from "@/components/ui/avatar";
 import Typography from "./Typography";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/context/ModalContext";
+import { useToast } from "@/components/ui/use-toast";
+import { SetStateAction, useState } from "react";
 
 export default function DrawerNewPost() {
   const { isModalOpen, closeModal } = useModal();
 
+  const { toast } = useToast();
+
+  const [contenuTextarea, setContenuTextarea] = useState("");
+
+  const handleChange = (e: { target: { value: SetStateAction<string> } }) => {
+    setContenuTextarea(e.target.value);
+  };
+
   const handlePublier = () => {
-    closeModal();
+    const dataToSend = {
+      content: contenuTextarea,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+      body: JSON.stringify(dataToSend),
+    };
+
+    fetch("http://localhost:8000/post/", requestOptions)
+      .then((response) => {
+        if (response.status === 200) {
+          setContenuTextarea("");
+          toast({
+            description: "Votre post à bien été publié !",
+          });
+          closeModal();
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            `La requête a échoué avec le statut ${response.status}`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
   };
 
   return (
@@ -40,7 +81,11 @@ export default function DrawerNewPost() {
               bSchutters
             </Typography>
           </div>
-          <Textarea placeholder="Nouveau post..."></Textarea>
+          <Textarea
+            placeholder="Nouveau post..."
+            value={contenuTextarea}
+            onChange={handleChange}
+          ></Textarea>
           <div className="flex flex-col gap-5">
             <Typography
               as="span"
