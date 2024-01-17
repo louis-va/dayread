@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import post from '../controllers/post.controller'
-import { checkValidContent } from '../middlewares/validatePost';
+import { checkValidContent, checkExistingPost, checkIsPostLiked, checkIsPostNotLiked } from '../middlewares/validatePost';
 
 const router = express.Router();
 
@@ -40,7 +40,7 @@ const router = express.Router();
  *                 id:
  *                   type: string
  *                   example: pid1111
- *       400:
+ *       404:
  *         description: Invalid request data.
  * 
  */
@@ -106,13 +106,14 @@ router.post("/",
  *                 created_date:
  *                   type: date
  *                   example: 2023-01-11T15:34:21
- *       400:
+ *       404:
  *         description: Invalid id.
  * 
  */
 router.get("/:id",
   [
-    passport.authenticate("jwt", { session: false })
+    passport.authenticate("jwt", { session: false }),
+    checkExistingPost
   ],
   post.getPost
 );
@@ -173,15 +174,50 @@ router.get("/:id",
  *                   created_date:
  *                     type: date
  *                     example: 2023-01-11T15:34:21
- *       400:
+ *       404:
  *         description: Invalid id.
  * 
  */
 router.get("/:id/comments",
   [
-    passport.authenticate("jwt", { session: false })
+    passport.authenticate("jwt", { session: false }),
+    checkExistingPost
   ],
   post.getComments
+);
+
+/**
+ * @swagger
+ * /post/{id}/like:
+ *   post:
+ *     tags: 
+ *      - Post
+ *     summary: Like a post
+ *     description: Like the specified post.
+ *     parameters:
+ *      - in: path
+ *        name: id
+ *        required: true
+ *        schema:
+ *          type: string
+ *          minLength: 1
+ *        description: The post id
+ *     responses:
+ *       200:
+ *         description: Successful.
+ *       400:
+ *         description: Post already liked.
+ *       404:
+ *         description: Invalid id.
+ * 
+ */
+router.post("/:id/like",
+  [
+    passport.authenticate("jwt", { session: false }),
+    checkExistingPost,
+    checkIsPostLiked
+  ],
+  post.like
 );
 
 export default router;
