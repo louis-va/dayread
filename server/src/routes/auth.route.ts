@@ -79,6 +79,9 @@ router.post("/signup",
  *               password:
  *                 type: string
  *                 example: pa$$$w0rd123!
+ *               remember:
+ *                 type: boolean
+ *                 example: true
  *     responses:
  *       200:
  *         description: User successfully logged in.

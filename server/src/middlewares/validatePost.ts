@@ -9,7 +9,7 @@ async function checkValidContent(req: Request, res: Response, next: NextFunction
       });
     }
 
-    if (req.body.content.length > 280) {
+    if (req.body.content.length > 240) {
       return res.status(400).send({ 
         message: "Content is too long.",
         error: "content_is_too_long"
