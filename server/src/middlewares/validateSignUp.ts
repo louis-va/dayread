@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
-import { User } from '../models/user.model';
+import database from '../models';
+const User = database.user;
 
 async function checkDuplicateEmail(req: Request, res: Response, next: NextFunction) {
   try {
