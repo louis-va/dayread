@@ -44,7 +44,7 @@ async function getPosts(req: Request, res: Response) {
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ author: user.id }, page)
+    const posts = await getPaginatedPosts({ author: user.id }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {
@@ -62,7 +62,7 @@ async function getLikedPosts(req: Request, res: Response) {
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page)
+    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {
@@ -70,4 +70,47 @@ async function getLikedPosts(req: Request, res: Response) {
   }
 }
 
-export default { follow, unfollow, getPosts, getLikedPosts }
+async function getUserInformation(req: Request, res: Response) {
+  try {
+    const user = req.user as IUser
+    const userLookup = await User.findOne({ username: req.params.username })
+
+    const isSelf = user.username == userLookup?.username
+    const [followerNumber, followingNumber, isFollowing] = await Promise.all([
+      await Follow.countDocuments({ following: userLookup?._id }),
+      await Follow.countDocuments({ follower: userLookup?._id }),
+      await Follow.findOne({ follower: user._id, following: userLookup?.id })
+    ]);
+
+    return res.status(200).send({
+      username: userLookup?.username,
+      firstname: userLookup?.firstname,
+      lastname: userLookup?.lastname,
+      bio: userLookup?.bio,
+      followers: followerNumber,
+      following: followingNumber,
+      is_following: !!isFollowing,
+      is_self: isSelf
+    });
+  } catch (err: any) {
+    return res.status(500).send({ message: err });
+  }
+}
+
+async function editUserInformation(req: Request, res: Response) {
+  try {
+    const user = req.user as IUser
+
+    await User.findByIdAndUpdate(user?.id, { $set: {
+      firstname: req.body.firstname, 
+      lastname: req.body.lastname,
+      bio: req.body.bio
+    }})
+
+    return res.status(200).send({ message: 'User successfully updated.'});
+  } catch (err: any) {
+    return res.status(500).send({ message: err });
+  }
+}
+
+export default { follow, unfollow, getPosts, getLikedPosts, getUserInformation, editUserInformation }

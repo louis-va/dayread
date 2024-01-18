@@ -43,6 +43,9 @@ const router = express.Router();
  *                   favourites:
  *                     type: integer
  *                     example: 4
+ *                   is_liked:
+ *                     type: boolean
+ *                     example: true
  *                   author:
  *                     type: object
  *                     properties:
@@ -111,6 +114,9 @@ router.get("/",
  *                   favourites:
  *                     type: integer
  *                     example: 4
+ *                   is_liked:
+ *                     type: boolean
+ *                     example: true
  *                   author:
  *                     type: object
  *                     properties:

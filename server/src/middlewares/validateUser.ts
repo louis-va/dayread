@@ -64,4 +64,20 @@ async function checkNotFollowingUser(req: Request, res: Response, next: NextFunc
   }
 }
 
-export { checkExistingUser, checkFollowingUser, checkNotFollowingUser };
+async function checkValidEditProfileParams(req: Request, res: Response, next: NextFunction) {
+  try {
+    
+    if (!req.body.firstname || !req.body.lastname || !req.body.bio) {
+      return res.status(400).send({ 
+        message: "Missing parameters.",
+        error: "missing_parameters"
+      });
+    }
+
+    next();
+  } catch(err: any) {
+    return res.status(500).send({ message: err.message || "Some error occurred while checking follow" });
+  }
+}
+
+export { checkExistingUser, checkFollowingUser, checkNotFollowingUser, checkValidEditProfileParams };
