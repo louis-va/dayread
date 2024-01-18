@@ -8,6 +8,66 @@ const router = express.Router();
 
 /**
  * @swagger
+ * /user/{username}:
+ *   get:
+ *     tags: 
+ *      - User
+ *     summary: Fetch user information
+ *     description: Fetch a user's information.
+ *     parameters:
+ *      - in: path
+ *        name: username
+ *        required: true
+ *        schema:
+ *          type: string
+ *          minLength: 1
+ *        description: User to fetch
+ *     responses:
+ *       200:
+ *         description: Successful.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 username:
+ *                   type: string
+ *                   example: john-doe
+ *                 firstname:
+ *                   type: string
+ *                   example: John
+ *                 lastname:
+ *                   type: string
+ *                   example: Doe
+ *                 bio:
+ *                   type: string
+ *                   example: Hey i'm John Doe.
+ *                 followers:
+ *                   type: number
+ *                   example: 104
+ *                 following:
+ *                   type: number
+ *                   example: 131
+ *                 is_following:
+ *                   type: boolean
+ *                   example: true
+ *                 is_self:
+ *                   type: boolean
+ *                   example: false
+ *       404:
+ *         description: Invalid username.
+ * 
+ */
+router.get("/:username",
+  [
+    passport.authenticate("jwt", { session: false }),
+    checkExistingUser
+  ],
+  user.getUserInformation
+);
+
+/**
+ * @swagger
  * /user/{username}/follow:
  *   post:
  *     tags: 
