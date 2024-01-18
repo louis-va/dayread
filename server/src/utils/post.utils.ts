@@ -1,3 +1,4 @@
+import { FilterQuery } from "mongoose";
 import { IPost } from "../models/post.model";
 import { IUser } from "../models/user.model";
 import database from '../models';
@@ -6,7 +7,7 @@ const Like = database.like;
 
 /**
  * Takes in an array of posts, calculates the number of likes and comments for each post,
-    and returns the posts in a structured array of objects.
+ *  and returns the posts in a structured array of objects.
  * @param posts An array of post objects.
  * @returns A structured array of post objects with added 'likes' and 'comments' properties.
  */
@@ -37,4 +38,28 @@ export async function calculateLikesAndComments(posts: IPost[]) {
   );
 
   return structuredPosts;
+}
+
+/**
+ * Fetch the posts that match the query. The results are paginated by page of 10 posts.
+ * @param filter Mongoose query filter
+ * @param page 
+ * @returns A structured array of 10 post objects
+ */
+export async function getPaginatedPosts(filter: FilterQuery<IPost>, page: number) {
+  // Fetch the 10 most recent posts from followees with pagination
+  const pageSize = 10;
+  const skip = (page - 1) * pageSize;
+
+  const paginatedPosts = await Post.find(filter)
+    .sort({ created_date: -1 })
+    .skip(skip)
+    .limit(pageSize)
+    .populate('author', 'username')
+    .exec();
+
+  // Count number of likes and comments
+  const postsDetailed = await calculateLikesAndComments(paginatedPosts)
+
+  return postsDetailed;
 }
