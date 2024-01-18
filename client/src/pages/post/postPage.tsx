@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 interface PostProps {
+  id: string;
   content: string;
   favourites: number;
   author: {
@@ -45,6 +46,7 @@ function PostPage() {
       </Link>
       {postData ? (
         <Posts
+          postId={postData.id}
           content={postData.content}
           favourites={postData.favourites}
           username={postData.author.username}

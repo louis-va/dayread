@@ -20,34 +20,35 @@ import { Link } from "react-router-dom";
 import ListFllwrsSubs from "@/features/ListFllwrsSubs";
 
 interface CardProfileProps {
-  userName: string;
+  userLastName: string;
+  userFirstName: string;
   userPseudo: string;
-  userEmail: string;
   userBio: string;
   userFollowers: number;
   userSubscribers: number;
-  listFollowers: string;
-  listSubscribers: string;
 }
 
 const CardProfile = ({
-  userName,
+  userLastName,
+  userFirstName,
   userPseudo,
-  userEmail,
   userBio,
   userFollowers,
   userSubscribers,
 }: CardProfileProps) => {
+  const firstLetterLastName = userLastName.charAt(0);
+  const firstLetterFirstName = userFirstName.charAt(0);
+  const initiales = firstLetterLastName + firstLetterFirstName;
   return (
     <Card className="bg-background border-none shadow-none w-full">
       <CardHeader className={"flex-row justify-between items-center"}>
         <section className="flex-col">
-          <CardTitle className={"text-xl lg:text-2xl"}>{userName}</CardTitle>
+          <CardTitle className={"text-xl lg:text-2xl"}>{userPseudo}</CardTitle>
           <CardDescription className={"lg:text-lg"}>
-            {userPseudo}
+            {userLastName} {userFirstName}
           </CardDescription>
         </section>
-        <Avatars value={userEmail} size={64} style={"shape"} />
+        <Avatars value={initiales.toString()} size={64} style={"shape"} />
       </CardHeader>
       <CardContent>
         <Typography as="p">{userBio}</Typography>
