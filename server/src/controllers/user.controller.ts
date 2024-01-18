@@ -44,7 +44,7 @@ async function getPosts(req: Request, res: Response) {
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ author: user.id }, page)
+    const posts = await getPaginatedPosts({ author: user.id }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {
@@ -62,7 +62,7 @@ async function getLikedPosts(req: Request, res: Response) {
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page)
+    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {

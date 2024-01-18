@@ -14,7 +14,7 @@ async function getFeed(req: Request, res: Response) {
 
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ author: { $in: followingIds, $ne: user.id }, is_comment: false }, page)
+    const posts = await getPaginatedPosts({ author: { $in: followingIds, $ne: user.id }, is_comment: false }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {
@@ -32,7 +32,7 @@ async function getDiscoveryFeed(req: Request, res: Response) {
 
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ author: { $nin: followingIds, $ne: user.id }, is_comment: false }, page)
+    const posts = await getPaginatedPosts({ author: { $nin: followingIds, $ne: user.id }, is_comment: false }, page, user)
 
     return res.status(200).send(posts);
   } catch (err: any) {

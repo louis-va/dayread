@@ -119,6 +119,9 @@ router.post("/:username/unfollow",
  *                   favourites:
  *                     type: integer
  *                     example: 4
+ *                   is_liked:
+ *                     type: boolean
+ *                     example: true
  *                   author:
  *                     type: object
  *                     properties:
@@ -197,6 +200,9 @@ router.get("/:username/posts",
  *                   favourites:
  *                     type: integer
  *                     example: 4
+ *                   is_liked:
+ *                     type: boolean
+ *                     example: true
  *                   author:
  *                     type: object
  *                     properties:
