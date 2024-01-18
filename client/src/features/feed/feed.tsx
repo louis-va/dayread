@@ -6,7 +6,7 @@ import SkeletonPostList from "./skeletonFeed";
 interface FeedProps {
   map(
     arg0: (post: FeedProps) => import("react/jsx-runtime").JSX.Element
-  ): unknown;
+  ): import("react").ReactNode;
   id: string;
   content: string;
   favourites: number;
@@ -44,6 +44,7 @@ export default function Feed() {
         postData.map((post: FeedProps) => (
           <Link to={`/post/${post.id}`}>
             <Posts
+              postId={post.id}
               content={post.content}
               favourites={post.favourites}
               username={post.author.username}
