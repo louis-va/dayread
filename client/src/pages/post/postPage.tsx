@@ -5,7 +5,7 @@ import { Layout } from "@/features/Layout";
 import Posts from "@/features/Posts";
 import Typography from "@/features/Typography";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 interface PostProps {
   content: string;
@@ -19,9 +19,10 @@ interface PostProps {
 
 function PostPage() {
   const [postData, setPostData] = useState<PostProps>();
+  const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    fetch("http://localhost:8000/post/65a6e7dd464ec41eac67d345", {
+    fetch(`http://localhost:8000/post/${id}`, {
       method: "GET",
       credentials: "include",
     })
@@ -30,7 +31,7 @@ function PostPage() {
         setPostData(data);
       })
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [id]);
 
   return (
     <Layout>
@@ -50,7 +51,7 @@ function PostPage() {
           created_date={new Date(postData.created_date)}
         />
       ) : (
-        <div className="flex gap-3 w-full">
+        <div className="flex gap-3 w-full py-5">
           <Skeleton className="w-[40px] h-[40px] rounded-full bg-border" />
           <div className="flex flex-col gap-3 w-full">
             <div className="flex w-full justify-between">

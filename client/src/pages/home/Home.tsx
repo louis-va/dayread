@@ -2,14 +2,33 @@ import NewPost from "@/features/NewPost";
 import { Layout } from "@/features/Layout";
 
 import { Toaster } from "@/components/ui/toaster";
-import PostList from "@/features/postList";
+import Feed from "@/features/feed/feed";
+import {
+  TabsContentHome,
+  TabsListHome,
+  TabsHome,
+  TabsTriggerHome,
+} from "@/components/ui/tabsHome";
+import Discover from "@/features/discover/discover";
 
 function Home() {
   return (
     <Layout>
       <Toaster />
       <NewPost />
-      <PostList />
+
+      <TabsHome defaultValue="forYou" className="w-full">
+        <TabsListHome>
+          <TabsTriggerHome value="forYou">Pour vous</TabsTriggerHome>
+          <TabsTriggerHome value="discover">Découverte</TabsTriggerHome>
+        </TabsListHome>
+        <TabsContentHome value="forYou">
+          <Feed />
+        </TabsContentHome>
+        <TabsContentHome value="discover">
+          <Discover />
+        </TabsContentHome>
+      </TabsHome>
     </Layout>
   );
 }
