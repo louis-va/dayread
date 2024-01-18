@@ -15,7 +15,6 @@ function Home() {
     <Layout>
       <Toaster />
       <NewPost />
-
       <TabsHome defaultValue="forYou" className="w-full">
         <TabsListHome>
           <TabsTriggerHome value="forYou">Pour vous</TabsTriggerHome>
