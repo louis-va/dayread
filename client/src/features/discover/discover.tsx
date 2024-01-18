@@ -44,6 +44,7 @@ export default function Discover() {
         postData.map((post: DiscoverProps) => (
           <Link to={`/post/${post.id}`}>
             <Posts
+              postId={post.id}
               content={post.content}
               favourites={post.favourites}
               username={post.author.username}
