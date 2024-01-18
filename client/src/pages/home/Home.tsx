@@ -1,11 +1,6 @@
 import NewPost from "@/features/NewPost";
-
-import {Layout} from "@/features/Layout";
-import Posts from "@/features/Posts";
-import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {Skeleton} from "@/components/ui/skeleton";
-import {Toaster} from "@/components/ui/toaster";
+import { Layout } from "@/features/Layout";
+import { Toaster } from "@/components/ui/toaster";
 import Feed from "@/features/feed/feed";
 import {
   TabsContentHome,
@@ -35,6 +30,5 @@ function Home() {
     </Layout>
   );
 }
-
 
 export default Home;
