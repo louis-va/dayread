@@ -62,7 +62,7 @@ const router = express.Router();
  *                     type: date
  *                     example: 2023-01-11T15:34:21
  *       400:
- *         description: Invalid id.
+ *         description: Missing page in query parameters.
  * 
  */
 router.get("/",
@@ -130,7 +130,7 @@ router.get("/",
  *                     type: date
  *                     example: 2023-01-11T15:34:21
  *       400:
- *         description: Invalid id.
+ *         description: Missing page in query parameters.
  * 
  */
 router.get("/discover",
