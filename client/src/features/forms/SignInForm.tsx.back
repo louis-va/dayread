@@ -67,7 +67,7 @@ export default function SignInForm() {
             />
           </div>
 
-          <Button variant="secondary" type="submit" className="md:self-end">
+          <Button variant="secondary" type="submit" className="lg:self-end">
             Submit
           </Button>
         </Form>

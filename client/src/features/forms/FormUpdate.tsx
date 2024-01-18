@@ -94,7 +94,7 @@ const FormUpdate = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-4/5 space-y-3 md:space-y-6"
+        className="w-4/5 space-y-3 lg:space-y-6"
       >
         <Link to="/profil">
           <Button variant="outline" size="sm" className="flex gap-3">
@@ -195,7 +195,7 @@ const FormUpdate = () => {
         <Button
           variant="secondary"
           type="submit"
-          className="w-full md:w-1/2"
+          className="w-full lg:w-1/2"
           asChild={true}
         >
           <Link to={"/profil"}>Valider modification</Link>
