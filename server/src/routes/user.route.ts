@@ -1,7 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import user from '../controllers/user.controller'
-import { checkExistingUser, checkFollowingUser, checkNotFollowingUser } from '../middlewares/validateUser';
+import { checkExistingUser, checkFollowingUser, checkNotFollowingUser, checkValidEditProfileParams } from '../middlewares/validateUser';
 import { checkPageQuery } from '../middlewares/validateQueryParams';
 
 const router = express.Router();
@@ -64,6 +64,49 @@ router.get("/:username",
     checkExistingUser
   ],
   user.getUserInformation
+);
+
+/**
+ * @swagger
+ * /user/edit:
+ *   put:
+ *     tags: 
+ *      - User
+ *     summary: Edit user information
+ *     description: Edit the logged in user's information.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               firstname:
+ *                 type: string
+ *                 example: John
+ *               lastname:
+ *                 type: string
+ *                 example: Doe
+ *               bio:
+ *                 type: boolean
+ *                 example: Hey I'm John
+ *             required:
+ *               - firstname
+ *               - lastname
+ *               - bio
+ *     responses:
+ *       200:
+ *         description: User successfully updated.
+ *       400:
+ *         description: Invalid parameters.
+ * 
+ */
+router.put("/edit",
+  [
+    passport.authenticate("jwt", { session: false }),
+    checkValidEditProfileParams
+  ],
+  user.editUserInformation
 );
 
 /**
