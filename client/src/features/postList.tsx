@@ -36,7 +36,7 @@ export default function PostList() {
   return (
     <>
       {postData ? (
-        <Link to="/postpage/65a6fbf76fc237aa2e6200f1">
+        <Link to="/post/65a6fbf76fc237aa2e6200f1">
           <Posts
             content={postData.content}
             favourites={postData.favourites}

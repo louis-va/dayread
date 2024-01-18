@@ -21,7 +21,7 @@ const router = createBrowserRouter(
       <Route path="profil/update" element={<UserProfileUpdate />} />
       <Route path="signin" element={<SignIn />} />
       <Route path="login" element={<Login />} />
-      <Route path="postpage" element={<PostPage />} />
+      <Route path="post/:id" element={<PostPage />} />
     </Route>
   )
 );
