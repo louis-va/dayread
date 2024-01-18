@@ -27,8 +27,10 @@ async function addPost(req: Request, res: Response) {
 
 async function getPost(req: Request, res: Response) {
   try {
+    const user = req.user as IUser
+
     const post = await Post.findById(req.params.id).populate('author');
-    const postDetails = await calculateLikesAndComments([post!])
+    const postDetails = await calculateLikesAndComments([post!], user)
 
     return res.status(200).send(postDetails[0]);
     
@@ -39,8 +41,10 @@ async function getPost(req: Request, res: Response) {
 
 async function getComments(req: Request, res: Response) {
   try {
+    const user = req.user as IUser
+
     const posts = await Post.find({ commented_on: req.params.id }).populate('author');
-    const postsDetails = await calculateLikesAndComments(posts)
+    const postsDetails = await calculateLikesAndComments(posts, user)
 
     return res.status(200).send(postsDetails);
 
