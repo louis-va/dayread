@@ -5,7 +5,8 @@ interface IUser extends Document {
   password: string,
   username: string,
   firstname: string,
-  lastname: string
+  lastname: string,
+  bio: string
 }
 
 const UserSchema = new Schema({
@@ -13,7 +14,8 @@ const UserSchema = new Schema({
   password: String,
   username: String,
   firstname: String,
-  lastname: String
+  lastname: String,
+  bio: String
 });
 
 const User: Model<IUser> = mongoose.model<IUser>('User', UserSchema);

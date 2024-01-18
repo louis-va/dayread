@@ -88,6 +88,9 @@ router.post("/",
  *                 favourites:
  *                   type: integer
  *                   example: 23
+ *                 is_liked:
+ *                     type: boolean
+ *                     example: true
  *                 author:
  *                   type: object
  *                   properties:
@@ -156,6 +159,9 @@ router.get("/:id",
  *                   favourites:
  *                     type: integer
  *                     example: 4
+ *                   is_liked:
+ *                     type: boolean
+ *                     example: true
  *                   author:
  *                     type: object
  *                     properties:

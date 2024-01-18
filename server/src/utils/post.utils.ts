@@ -11,14 +11,15 @@ const Like = database.like;
  * @param posts An array of post objects.
  * @returns A structured array of post objects with added 'likes' and 'comments' properties.
  */
-export async function calculateLikesAndComments(posts: IPost[]) {
+export async function calculateLikesAndComments(posts: IPost[], user: IUser) {
   const structuredPosts = await Promise.all(
     posts.map(async (post: any) => {
       const author = post.author as IUser
 
-      const [commentsNumber, favouritesNumber] = await Promise.all([
+      const [commentsNumber, favouritesNumber, isPostLiked] = await Promise.all([
         await Post.countDocuments({ commented_on: post._id }),
         await Like.countDocuments({ post: post._id }),
+        await Like.findOne({ post: post._id, liked_by: user!.id })
       ]);
 
       return {
@@ -26,6 +27,7 @@ export async function calculateLikesAndComments(posts: IPost[]) {
         content: post.content,
         comments: commentsNumber,
         favourites: favouritesNumber,
+        is_liked: !!isPostLiked,
         author: {
           id: author?._id,
           username: author?.username
@@ -46,7 +48,7 @@ export async function calculateLikesAndComments(posts: IPost[]) {
  * @param page 
  * @returns A structured array of 10 post objects
  */
-export async function getPaginatedPosts(filter: FilterQuery<IPost>, page: number) {
+export async function getPaginatedPosts(filter: FilterQuery<IPost>, page: number, user: IUser) {
   // Fetch the 10 most recent posts from followees with pagination
   const pageSize = 10;
   const skip = (page - 1) * pageSize;
@@ -59,7 +61,7 @@ export async function getPaginatedPosts(filter: FilterQuery<IPost>, page: number
     .exec();
 
   // Count number of likes and comments
-  const postsDetailed = await calculateLikesAndComments(paginatedPosts)
+  const postsDetailed = await calculateLikesAndComments(paginatedPosts, user)
 
   return postsDetailed;
 }
