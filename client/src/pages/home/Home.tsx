@@ -1,17 +1,74 @@
 import NewPost from "@/features/NewPost";
-import { Layout } from "@/features/Layout";
+import {Layout} from "@/features/Layout";
+import Posts from "@/features/Posts";
+import {useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {Skeleton} from "@/components/ui/skeleton";
+import {Toaster} from "@/components/ui/toaster";
 
-import { Toaster } from "@/components/ui/toaster";
-import PostList from "@/features/postList";
+interface PostProps {
+    id: string;
+    content: string;
+    favourites: number;
+    author: {
+        username: string;
+    };
+    username: string;
+    created_date: Date;
+}
 
 function Home() {
-  return (
-    <Layout>
-      <Toaster />
-      <NewPost />
-      <PostList />
-    </Layout>
-  );
-}
+    const [postData, setPostData] = useState<PostProps>();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        fetch("http://localhost:8000/post/65a6fbf76fc237aa2e6200f1", {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((response) => {
+                if (response.status === 401) {
+                    navigate("/login");
+                }
+                return response.json();
+            })
+            .then((data) => {
+                setPostData(data);
+            })
+            .catch((error) => console.log("error", error));
+    }, [navigate]);
+
+    return (
+        <Layout>
+            <Toaster/>
+            <NewPost/>
+            {postData ? (
+                <Posts
+                    postId={postData.id}
+                    content={postData.content}
+                    favourites={postData.favourites}
+                    username={postData.author.username}
+                    created_date={new Date(postData.created_date)}
+                />
+            ) : (
+                <div className="flex gap-3 w-full py-5">
+                    <Skeleton className="w-[40px] h-[40px] rounded-full bg-border"/>
+                    <div className="flex flex-col gap-3 w-full">
+                        <div className="flex w-full justify-between">
+                            <Skeleton className="w-[100px] h-[20px] rounded-full bg-border"/>
+                            <Skeleton className="w-[60px] h-[20px] rounded-full bg-border"/>
+                        </div>
+                        <Skeleton className="w-2/3 h-[20px] rounded-full bg-border"/>
+                        <Skeleton className="w-2/3 h-[20px] rounded-full bg-border"/>
+                        <div className="flex gap-2">
+                            <Skeleton className="w-[30px] h-[30px] rounded-full bg-border"/>
+                            <Skeleton className="w-[30px] h-[30px] rounded-full bg-border"/>
+                        </div>
+                        <Skeleton className="w-[50px] h-[14px] rounded-full bg-border"/>
+                    </div>
+                </div>
+            )}
+        </Layout>
+    );
 
 export default Home;
