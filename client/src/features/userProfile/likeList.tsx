@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Posts from "../Posts";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function LikeList() {
   const [likeList, setLikeList] = useState<postListProps>();
+  const { username } = useParams<{ username: string }>();
 
   interface postListProps {
     map(
@@ -20,9 +21,9 @@ export default function LikeList() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:8000/user/bschutters/liked-posts?page=1", {
+    fetch(`http://localhost:8000/user/${username}/liked-posts?page=1`, {
       method: "GET",
-      credentials: "include",
+      credentials: "include" as RequestCredentials,
     })
       .then((response) => response.json())
       .then((dataLikes) => {
@@ -30,12 +31,12 @@ export default function LikeList() {
         setLikeList(dataLikes);
       })
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [username]);
   return (
     <>
       {likeList &&
         likeList.map((post: postListProps) => (
-          <Link to={`/post/${post.id}`}>
+          <Link to={`/post/${post.id}`} key={post.id}>
             <Posts
               postId={post.id}
               content={post.content}

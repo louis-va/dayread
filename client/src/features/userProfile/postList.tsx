@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import Posts from "../Posts";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function PostList() {
   const [postList, setPostList] = useState<postListProps>();
+  const { username } = useParams<{ username: string }>();
 
   interface postListProps {
     map(
@@ -20,21 +21,22 @@ export default function PostList() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/bschutters/posts?page=1`, {
+    fetch(`http://localhost:8000/user/${username}/posts?page=1`, {
       method: "GET",
       credentials: "include",
     })
       .then((response) => response.json())
       .then((dataPosts) => {
         setPostList(dataPosts);
+        console.log("dataPosts", dataPosts);
       })
       .catch((error) => console.log("error", error));
-  }, []);
+  }, [username]);
   return (
     <>
       {postList &&
         postList.map((post: postListProps) => (
-          <Link to={`/post/${post.id}`}>
+          <Link to={`/post/${post.id}`} key={post.id}>
             <Posts
               postId={post.id}
               content={post.content}

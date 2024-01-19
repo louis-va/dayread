@@ -42,7 +42,7 @@ export default function Feed() {
     <>
       {postData &&
         postData.map((post: FeedProps) => (
-          <Link to={`/post/${post.id}`}>
+          <Link to={`/post/${post.id}`} key={post.id}>
             <Posts
               postId={post.id}
               content={post.content}
