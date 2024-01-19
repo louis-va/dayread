@@ -3,6 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Typography from "./Typography";
 import Icon from "@/components/ui/icons";
 import TimeElapsedComponent from "./fonctions/TimeElapsed";
+import { useNavigate } from "react-router-dom";
 
 interface PostProps {
   postId: string;
@@ -21,6 +22,7 @@ const Posts: React.FC<PostProps> = ({
 }: PostProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(favourites);
+  const navigate = useNavigate();
 
   const handleLikeClick = async () => {
     try {
@@ -44,10 +46,7 @@ const Posts: React.FC<PostProps> = ({
   };
 
   return (
-    <div
-      className="py-5 border-border border-b-2 flex gap-3"
-      onClick={(e) => e.stopPropagation()}
-    >
+    <div className="py-5 border-border border-b-2 flex gap-3">
       <div>
         <Avatar>
           <AvatarImage src="https://picsum.photos/200" />
@@ -56,9 +55,19 @@ const Posts: React.FC<PostProps> = ({
       </div>
       <div className="flex flex-col gap-2 w-full">
         <div className="flex w-full justify-between">
-          <Typography as="span" className="font-bold text-sm">
-            {username}
-          </Typography>
+          <p
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/profil/${username}`);
+            }}
+          >
+            <Typography
+              as="span"
+              className="font-bold text-sm hover:underline "
+            >
+              {username}
+            </Typography>
+          </p>
           <Typography as="span" className="text-muted-foreground text-sm">
             <TimeElapsedComponent startTime={created_date} />
           </Typography>

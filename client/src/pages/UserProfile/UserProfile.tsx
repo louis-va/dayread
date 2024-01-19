@@ -1,6 +1,6 @@
 import { Layout } from "@/features/Layout";
-import CardProfile from "@/features/userProfile/CardProfile";
-import MenuTabs from "@/features/userProfile/MenuTabs";
+import CardProfile from "@/features/userProfile/cardProfile";
+import MenuTabs from "@/features/userProfile/menuTabs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -17,10 +17,10 @@ interface userProps {
 
 const UserProfile = () => {
   const [userData, setUserData] = useState<userProps>();
-  const { id } = useParams<{ id: string }>();
+  const { username } = useParams<{ username: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/bschutters`, {
+    fetch(`http://localhost:8000/user/${username}`, {
       method: "GET",
       credentials: "include",
     })
@@ -29,7 +29,7 @@ const UserProfile = () => {
         setUserData(data);
       })
       .catch((error) => console.log("error", error));
-  }, [id]);
+  }, [username]);
   return (
     <Layout>
       <CardProfile
