@@ -14,16 +14,43 @@ import PostPage from "./pages/post/postPage";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import "./main.css";
 
+// const routes = {
+//   userprofile: {
+//     path: "profile/:username",
+//     element: <UserProfile />,
+//   },
+//   udpateProfile: {
+//     path: "profile/update",
+//     element: <UserProfileUpdate />,
+//   },
+//   signIn: {
+//     path: "/signin",
+//     element: <SignIn />,
+//   },
+//   login: {
+//     path: "/login",
+//     element: <Login />,
+//   },
+//   post: {
+//     path: "/post/:id",
+//     element: <PostPage />,
+//   },
+//   notFound: {
+//     path: "*",
+//     element: <NotFound />,
+//   },
+// };
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/">
-      <Route path="*" element={<NotFound />} />
       <Route index element={<Home />} />
       <Route path="profil/:username" element={<UserProfile />} />
       <Route path="profil/update" element={<UserProfileUpdate />} />
       <Route path="signin" element={<SignIn />} />
       <Route path="login" element={<Login />} />
       <Route path="post/:id" element={<PostPage />} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
