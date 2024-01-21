@@ -16,7 +16,7 @@ const NotFound = () => {
                     la page que vous voulez afficher n'existe pas ..
                 </Typography>
                 <Button variant={'outline'} asChild={true}>
-                    <Link to={'login'}>
+                    <Link to={'/'}>
                         Retour
                     </Link>
                 </Button>
