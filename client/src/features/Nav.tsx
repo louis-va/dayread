@@ -7,6 +7,8 @@ import Logo from "@/components/ui/logo";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";
+import {getUserName} from "@/localStorageUtils/getUserNameLS";
+import {useEffect, useState} from "react";
 
 export default function Nav() {
   const navDesktopClasses =
@@ -16,8 +18,13 @@ export default function Nav() {
     "fixed bottom-0 bg-popover/70 backdrop-blur-lg  border-border border-t-2 w-full z-10 p-2";
 
   const { openModal } = useModal();
+  const [username, setUsername] = useState(getUserName());
   const navigate = useNavigate();
 
+  useEffect(() => {
+    const updatedUsername = getUserName();
+    setUsername(updatedUsername);
+  }, []);
   const handleLogOut = async () => {
     try {
       const headers = new Headers();
@@ -76,7 +83,7 @@ export default function Nav() {
           </Button>
 
           <Link
-            to="profil/:username"
+            to={`profil/${username}`}
             className={
               buttonVariants({ variant: "ghost", size: "default" }) +
               "flex gap-3 lg:w-full lg:justify-start"
