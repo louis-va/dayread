@@ -40,11 +40,11 @@ async function unfollow(req: Request, res: Response) {
 
 async function getPosts(req: Request, res: Response) {
   try {
-    const user = req.user as IUser
+    const user = await User.findOne({ username: req.params.username })
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ author: user.id }, page, user)
+    const posts = await getPaginatedPosts({ author: user!.id }, page, user!)
 
     return res.status(200).send(posts);
   } catch (err: any) {
@@ -54,15 +54,15 @@ async function getPosts(req: Request, res: Response) {
 
 async function getLikedPosts(req: Request, res: Response) {
   try {
-    const user = req.user as IUser
+    const user = await User.findOne({ username: req.params.username })
 
     // Get the liked post ids
-    const likedPosts = await Like.find({ liked_by: user.id }).select('post');
+    const likedPosts = await Like.find({ liked_by: user!.id }).select('post');
     const likedPostsIds = likedPosts.map((post) => post.post);
     
     // Get paginated posts
     const page = parseInt(req.query.page as string) || 1;
-    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page, user)
+    const posts = await getPaginatedPosts({ _id: { $in: likedPostsIds } }, page, user!)
 
     return res.status(200).send(posts);
   } catch (err: any) {
