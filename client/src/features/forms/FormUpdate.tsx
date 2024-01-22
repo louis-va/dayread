@@ -1,15 +1,16 @@
 // formUpdate.tsx
-import { Control, useForm, UseFormReturn } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import {Control, useForm, UseFormReturn } from "react-hook-form";
+import {Link, useNavigate} from "react-router-dom";
 import * as z from "zod";
-import { Button } from "@/components/ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import {Button} from "@/components/ui/button";
+import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage,} from "@/components/ui/form";
+import {Input} from "@/components/ui/input";
+import {Textarea} from "@/components/ui/textarea";
 import Typography from "@/features/Typography";
 import Icon from "@/components/ui/icons";
-import { useEffect, useState } from "react";
-import { getUserName } from "@/localStorageUtils/getUserNameLS";
+import {useEffect, useState} from "react";
+import {getUserName} from "@/localStorageUtils/getUserNameLS";
+
 
 const FormSchema = z.object({
     lastname: z.string().min(2, {
@@ -44,7 +45,7 @@ const FormUpdate = () => {
 
     const fetchData = () => {
         const storedUsername = getUserName();
-        console.log(storedUsername);
+        console.log(storedUsername)
 
         // Vérifier si le nom d'utilisateur est présent
         if (storedUsername) {
@@ -60,9 +61,9 @@ const FormUpdate = () => {
                 })
                 .then((userData) => {
                     setUserData(userData);
-                    form.setValue("lastname", userData?.lastname || 'lastName');
-                    form.setValue("firstname", userData?.firstname || 'FirstName');
-                    form.setValue("bio", userData?.bio || 'Bio');
+                    form.setValue("lastname", userData.lastname || '');
+                    form.setValue("firstname", userData.firstname || '');
+                    form.setValue("bio", userData.bio || '');
                 })
                 .catch((error) => {
                     console.error(error);
@@ -72,7 +73,7 @@ const FormUpdate = () => {
 
     useEffect(() => {
         fetchData();
-    });
+    }, []);
 
     const onSubmit = async (data: z.infer<typeof FormSchema>) => {
         try {
@@ -105,7 +106,8 @@ const FormUpdate = () => {
                 throw new Error("Une erreur s'est produite lors de la modification");
             }
 
-            await response.json();
+            const responseBody = await response.json();
+            console.log("body:", responseBody);
         } catch (error) {
             handleError(error);
         }
@@ -130,6 +132,7 @@ const FormUpdate = () => {
                 </Button>
                 <Typography as={"h2"} className={"text-2xl"}>
                     Mise à jour des données
+
                 </Typography>
                 <FormField
                     control={form.control}
@@ -138,7 +141,7 @@ const FormUpdate = () => {
                         <FormItem>
                             <FormLabel>Nom</FormLabel>
                             <FormControl>
-                                <Input {...field} value={field.value || ''} />
+                                <Input  {...field} value={field.value ?? ''} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -151,7 +154,7 @@ const FormUpdate = () => {
                         <FormItem>
                             <FormLabel>Prénom</FormLabel>
                             <FormControl>
-                                <Input {...field} value={field.value || ''} />
+                                <Input {...field} value={field.value ?? ''} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
@@ -164,7 +167,7 @@ const FormUpdate = () => {
                         <FormItem>
                             <FormLabel>Biographie</FormLabel>
                             <FormControl>
-                                <Textarea {...field} value={field.value || ''} />
+                                <Textarea {...field} value={field.value ?? ''} />
                             </FormControl>
                             <FormMessage />
                         </FormItem>
