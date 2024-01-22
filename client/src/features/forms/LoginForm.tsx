@@ -73,8 +73,6 @@ export default function LoginForm() {
         // Redirection vers la page d'accueil
         navigate("/");
 
-        // Affichage du "username" dans la console
-        console.log("Username récupéré après connexion:", usernameFromResponse);
       }
 
 

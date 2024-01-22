@@ -24,7 +24,8 @@ const Posts: React.FC<PostProps> = ({
   const [likesCount, setLikesCount] = useState<number>(favourites);
   const navigate = useNavigate();
 
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
     try {
       const response = await fetch(
         `http://localhost:8000/post/${postId}/${isLiked ? "unlike" : "like"}`,
