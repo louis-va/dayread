@@ -83,7 +83,7 @@ export default function Nav() {
           </Button>
 
           <Link
-            to={`profil/${username}`}
+            to={`/profil/${username}`}
             className={
               buttonVariants({ variant: "ghost", size: "default" }) +
               "flex gap-3 lg:w-full lg:justify-start"

@@ -21,13 +21,13 @@ const UserProfile = () => {
   const { username } = useParams<{ username: string }>();
 
   useEffect(() => {
-    const currentUserName = getUserName();
-    fetch(`http://localhost:8000/user/${currentUserName}`, {
+    fetch(`http://localhost:8000/user/${getUserName()}`, {
       method: "GET",
       credentials: "include",
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         setUserData(data);
       })
       .catch((error) => console.log("error", error));
