@@ -45,7 +45,6 @@ const FormUpdate = () => {
 
     const fetchData = () => {
         const storedUsername = getUserName();
-        console.log(storedUsername)
 
         // Vérifier si le nom d'utilisateur est présent
         if (storedUsername) {
@@ -106,8 +105,6 @@ const FormUpdate = () => {
                 throw new Error("Une erreur s'est produite lors de la modification");
             }
 
-            const responseBody = await response.json();
-            console.log("body:", responseBody);
         } catch (error) {
             handleError(error);
         }

@@ -27,7 +27,6 @@ const UserProfile = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
         setUserData(data);
       })
       .catch((error) => console.log("error", error));
