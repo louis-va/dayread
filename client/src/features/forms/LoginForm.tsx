@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {setUserName} from "@/localStorageUtils/getUserNameLS";
+import {setUserName} from "@/localStorageUtils/LsUtils";
 
 const FormSchema = z.object({
   mail: z

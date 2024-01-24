@@ -3,7 +3,7 @@ import CardProfile from "@/features/userProfile/cardProfile";
 import MenuTabs from "@/features/userProfile/menuTabs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {getUserName} from "@/localStorageUtils/getUserNameLS";
+import {getUserName} from "@/localStorageUtils/LsUtils";
 
 interface userProps {
   id: string;
