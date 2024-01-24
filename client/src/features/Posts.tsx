@@ -113,7 +113,6 @@ const Posts = ({
         }
     };
 
-
     return (
         <div className="py-5 border-border border-b-2 flex gap-3">
             <div>
