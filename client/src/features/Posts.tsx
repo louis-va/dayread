@@ -30,6 +30,7 @@ const Posts = ({
                }: PostProps) => {
     const [isLiked, setIsLiked] = useState<boolean>(false);
     const [likesCount, setLikesCount] = useState<number>(favourites);
+    const [isDialogTriggerOpen, setIsDialogTriggerOpen] = useState<boolean>(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -94,6 +95,24 @@ const Posts = ({
         }
     };
 
+
+    const handleLikesCountClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+        e.preventDefault();
+        setIsDialogTriggerOpen((prev) => !prev);
+    };
+
+    const handleDialogClose = () => {
+        setIsDialogTriggerOpen(false);
+    };
+
+    const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        // Empêcher la propagation de l'événement si l'événement provient du compteur de likes
+        if (e.target === e.currentTarget) {
+            setIsDialogTriggerOpen((prev) => !prev);
+        }
+    };
+
     return (
         <div className="py-5 border-border border-b-2 flex gap-3">
             <div>
@@ -134,15 +153,13 @@ const Posts = ({
                         />
                         <Icon icon="send" size={22}/>
                     </div>
-                    <Dialog>
-                        <DialogTrigger className={'w-fit'}>
-                            <Typography as="span" className="text-muted-foreground text-xs">
+                    <Dialog open={isDialogTriggerOpen} onClose={handleDialogClose}>
+                        <DialogTrigger className={'items-start justify-start w-min p-2'} onClick={handleLikesCountClick}>
+                            <Typography as="span" className="text-muted-foreground text-xs whitespace-nowrap" >
                                 {likesCount} likes
                             </Typography>
                         </DialogTrigger>
-                        <DialogContent        onInteractOutside={(e) => {
-                            e.preventDefault();
-                        }}>
+                        <DialogContent onClick={handleInteraction}>
                             <DialogHeader>
                                 <DialogTitle>Liste des likes</DialogTitle>
                                 <DialogDescription>
@@ -151,7 +168,6 @@ const Posts = ({
                             </DialogHeader>
                         </DialogContent>
                     </Dialog>
-
                 </div>
             </div>
         </div>
