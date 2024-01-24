@@ -20,7 +20,7 @@ export const Layout = ({ children }: LayoutProps) => {
       <aside className="lg:fixed lg:left-0 lg:p-5 lg:h-full">
         <Nav />
       </aside>
-      <section className="lg:w-2/5 w-full h-full flex">
+      <section className="lg:w-2/5 w-full h-svh flex">
         <header className="fixed w-full flex items-center justify-center p-5 bg-popover/70 z-10 backdrop-blur-lg lg:hidden">
           <Link to="/">
             <Logo size={30}></Logo>

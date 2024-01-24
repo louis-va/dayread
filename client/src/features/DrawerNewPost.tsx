@@ -2,7 +2,6 @@ import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -96,7 +95,6 @@ export default function DrawerNewPost() {
             <Button variant="secondary" onClick={handlePublier}>
               Publier
             </Button>
-            <DrawerClose>
               <Button
                 variant="outline"
                 className="w-full"
@@ -104,7 +102,6 @@ export default function DrawerNewPost() {
               >
                 Annuler
               </Button>
-            </DrawerClose>
           </div>
         </div>
       </DrawerContent>
