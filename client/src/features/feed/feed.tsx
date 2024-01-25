@@ -2,6 +2,7 @@ import Posts from "../Posts";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import SkeletonPostList from "./skeletonFeed";
+import Typography from "../Typography";
 
 interface FeedProps {
   map(
@@ -45,6 +46,7 @@ export default function Feed() {
   return (
     <>
       {postData &&
+        postData.length > 0 &&
         postData.map((post: FeedProps, index: number) => (
           <Link to={`/post/${post.id}`} key={post.id}>
             <Posts
@@ -59,6 +61,11 @@ export default function Feed() {
             />
           </Link>
         ))}
+      {postData && postData.length === 0 && (
+        <Typography as="p" className="p-2">
+          Aucun post à afficher, vous ne suivez personne
+        </Typography>
+      )}
       {!postData && <SkeletonPostList />}
     </>
   );
