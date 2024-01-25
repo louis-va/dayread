@@ -107,11 +107,11 @@ const Posts = ({
 
     const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
         e.preventDefault();
-        // Empêcher la propagation de l'événement si l'événement provient du compteur de likes
-        if (e.target === e.currentTarget) {
+        if (stopPropagation && e.target === e.currentTarget) {
             setIsDialogTriggerOpen((prev) => !prev);
         }
     };
+
 
     return (
         <div className="py-5 border-border border-b-2 flex gap-3">
@@ -153,8 +153,8 @@ const Posts = ({
                         />
                         <Icon icon="send" size={22}/>
                     </div>
-                    <Dialog open={isDialogTriggerOpen} onClose={handleDialogClose}>
-                        <DialogTrigger className={'items-start justify-start w-min p-2'} onClick={handleLikesCountClick}>
+                    <Dialog open={isDialogTriggerOpen} close={handleDialogClose}>
+                        <DialogTrigger className={'items-start justify-start w-min'} onClick={handleLikesCountClick}>
                             <Typography as="span" className="text-muted-foreground text-xs whitespace-nowrap" >
                                 {likesCount} likes
                             </Typography>
@@ -173,5 +173,6 @@ const Posts = ({
         </div>
     );
 };
+
 
 export default Posts;
