@@ -1,10 +1,11 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import Typography from "./Typography";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
+import { getUserName } from "@/localStorageUtils/LsUtils";
 
 export default function PopUpNewPost() {
   const { isModalOpen, closeModal } = useModal();
@@ -74,10 +75,9 @@ export default function PopUpNewPost() {
             <div className="flex gap-3 items-center ">
               <Avatar>
                 <AvatarImage src="https://picsum.photos/200" />
-                <AvatarFallback>BS</AvatarFallback>
               </Avatar>
               <Typography as="span" className="font-bold text-md">
-                bSchutters
+                {getUserName()}
               </Typography>
             </div>
             <Textarea

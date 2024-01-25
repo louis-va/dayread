@@ -3,7 +3,6 @@ import CardProfile from "@/features/userProfile/cardProfile";
 import MenuTabs from "@/features/userProfile/menuTabs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {getUserName} from "@/localStorageUtils/LsUtils";
 
 interface userProps {
   id: string;
@@ -21,7 +20,7 @@ const UserProfile = () => {
   const { username } = useParams<{ username: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/${getUserName()}`, {
+    fetch(`http://localhost:8000/user/${username}`, {
       method: "GET",
       credentials: "include",
     })
