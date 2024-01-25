@@ -7,7 +7,7 @@ import Logo from "@/components/ui/logo";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";
-import {getUserName} from "@/localStorageUtils/getUserNameLS";
+import {getUserName} from "@/localStorageUtils/LsUtils";
 import {useEffect, useState} from "react";
 
 export default function Nav() {

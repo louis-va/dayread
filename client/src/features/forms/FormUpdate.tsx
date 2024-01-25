@@ -9,7 +9,7 @@ import {Textarea} from "@/components/ui/textarea";
 import Typography from "@/features/Typography";
 import Icon from "@/components/ui/icons";
 import {useEffect, useState} from "react";
-import {getUserName} from "@/localStorageUtils/getUserNameLS";
+import {getUserName} from "@/localStorageUtils/LsUtils";
 
 
 const FormSchema = z.object({
