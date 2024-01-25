@@ -16,8 +16,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Typography from "@/features/Typography";
 import Avatars from "@/features/Avatars";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ListFllwrsSubs from "@/features/ListFllwrsSubs";
+import { getUserName } from "@/localStorageUtils/LsUtils";
 
 interface CardProfileProps {
   userLastName: string;
@@ -39,6 +40,18 @@ const CardProfile = ({
   const firstLetterLastName = userLastName.charAt(0);
   const firstLetterFirstName = userFirstName.charAt(0);
   const initiales = firstLetterLastName + firstLetterFirstName;
+
+  const userUseParams = useParams<{ username: string }>();
+  const userLink = userUseParams.username;
+  const userName = getUserName();
+  let isUser;
+
+  if (userName === userLink) {
+    isUser = true;
+  } else {
+    isUser = false;
+  }
+
   return (
     <Card className="bg-background border-none shadow-none w-full">
       <CardHeader className={"flex-row justify-between items-center"}>
@@ -111,11 +124,22 @@ const CardProfile = ({
         </Dialog>
       </CardContent>
       <CardFooter className={"px-0 lg:justify-center"}>
-        <Button className="w-full" variant="outline" asChild={true} size={"lg"}>
-          <Link to={"/profil/update"}>
-            <Typography as="p">Modifier le profil</Typography>
-          </Link>
-        </Button>
+        {isUser ? (
+          <Button
+            className="w-full"
+            variant="outline"
+            asChild={true}
+            size={"lg"}
+          >
+            <Link to={"/profil/update"}>
+              <Typography as="p">Modifier le profil</Typography>
+            </Link>
+          </Button>
+        ) : (
+          <Button className="w-full" variant="white" size={"lg"}>
+            <Typography as="p">S'abonner</Typography>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
