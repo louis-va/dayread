@@ -117,77 +117,78 @@ const Posts = ({
     setIsDialogTriggerOpen(false);
   };
 
-  const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    // Empêcher la propagation de l'événement si l'événement provient du compteur de likes
-    if (e.target === e.currentTarget) {
-      setIsDialogTriggerOpen((prev) => !prev);
-    }
-  };
 
-  return (
-    <div className="py-5 border-border border-b-2 flex gap-3">
-      <div>
-        <Avatar>
-          <AvatarImage src="https://picsum.photos/200" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      </div>
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex w-full justify-between">
-          <p
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(`/profil/${username}`);
-            }}
-          >
-            <Typography
-              as="span"
-              className="font-bold text-sm hover:underline "
-            >
-              {username}
-            </Typography>
-          </p>
-          <Typography as="span" className="text-muted-foreground text-sm">
-            <TimeElapsedComponent startTime={created_date} />
-          </Typography>
-        </div>
-        <div className="flex flex-col gap-3">
-          <Typography as="span" className="text-sm">
-            {content}
-          </Typography>
-          <div className="flex -ml-2">
-            <Icon
-              icon="like"
-              size={22}
-              isLiked={isLiked}
-              onClick={handleLikeClick}
-            />
-            <Icon icon="send" size={22} />
-          </div>
-          <Dialog open={isDialogTriggerOpen} onClose={handleDialogClose}>
-            <DialogTrigger
-              className={"items-start justify-start w-min p-2"}
-              onClick={handleLikesCountClick}
-            >
-              <Typography
-                as="span"
-                className="text-muted-foreground text-xs whitespace-nowrap"
-              >
-                {likesCount} likes
-              </Typography>
-            </DialogTrigger>
-            <DialogContent onClick={handleInteraction}>
-              <DialogHeader>
-                <DialogTitle>Liste des likes</DialogTitle>
-                <DialogDescription>liste des likes</DialogDescription>
-              </DialogHeader>
-            </DialogContent>
-          </Dialog>
+    const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.preventDefault();
+        if (stopPropagation && e.target === e.currentTarget) {
+            setIsDialogTriggerOpen((prev) => !prev);
+        }
+    };
+
+
+    return (
+        <div className="py-5 border-border border-b-2 flex gap-3">
+            <div>
+                <Avatar>
+                    <AvatarImage src="https://picsum.photos/200"/>
+                    <AvatarFallback>CN</AvatarFallback>
+                </Avatar>
+            </div>
+            <div className="flex flex-col gap-2 w-full">
+                <div className="flex w-full justify-between">
+                    <p
+                        onClick={(e) => {
+                            e.preventDefault();
+                            navigate(`/profil/${username}`);
+                        }}
+                    >
+                        <Typography
+                            as="span"
+                            className="font-bold text-sm hover:underline "
+                        >
+                            {username}
+                        </Typography>
+                    </p>
+                    <Typography as="span" className="text-muted-foreground text-sm">
+                        <TimeElapsedComponent startTime={created_date}/>
+                    </Typography>
+                </div>
+                <div className="flex flex-col gap-3">
+                    <Typography as="span" className="text-sm">
+                        {content}
+                    </Typography>
+                    <div className="flex -ml-2">
+                        <Icon
+                            icon="like"
+                            size={22}
+                            isLiked={isLiked}
+                            onClick={handleLikeClick}
+                        />
+                        <Icon icon="send" size={22}/>
+                    </div>
+                    <Dialog open={isDialogTriggerOpen} close={handleDialogClose}>
+                        <DialogTrigger className={'items-start justify-start w-min'} onClick={handleLikesCountClick}>
+                            <Typography as="span" className="text-muted-foreground text-xs whitespace-nowrap" >
+                                {likesCount} likes
+                            </Typography>
+                        </DialogTrigger>
+                        <DialogContent onClick={handleInteraction}>
+                            <DialogHeader>
+                                <DialogTitle>Liste des likes</DialogTitle>
+                                <DialogDescription>
+                                   liste des likes
+                                </DialogDescription>
+                            </DialogHeader>
+                        </DialogContent>
+                    </Dialog>
+                </div>
+            </div>
+
         </div>
       </div>
     </div>
   );
 };
+
 
 export default Posts;
