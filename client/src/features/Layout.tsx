@@ -26,7 +26,7 @@ export const Layout = ({ children }: LayoutProps) => {
             <Logo size={30}></Logo>
           </Link>
         </header>
-        <main className="relative top-[70px] w-full h-full p-5 lg:border-x-2 lg:border-border lg:top-0">
+        <main className="relative top-[70px] w-full min-h-svh h-fit p-5 lg:border-x-2 lg:border-border lg:top-0">
           {children}
         </main>
       </section>

@@ -1,4 +1,4 @@
-import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,
@@ -13,6 +13,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/context/ModalContext";
 import { useToast } from "@/components/ui/use-toast";
 import { SetStateAction, useState } from "react";
+import { getUserName } from "@/localStorageUtils/LsUtils";
 
 export default function DrawerNewPost() {
   const { isModalOpen, closeModal } = useModal();
@@ -74,10 +75,9 @@ export default function DrawerNewPost() {
           <div className="flex gap-3 items-center ">
             <Avatar>
               <AvatarImage src="https://picsum.photos/200" />
-              <AvatarFallback>BS</AvatarFallback>
             </Avatar>
             <Typography as="span" className="font-bold text-md">
-              bSchutters
+              {getUserName()}
             </Typography>
           </div>
           <Textarea
@@ -95,13 +95,13 @@ export default function DrawerNewPost() {
             <Button variant="secondary" onClick={handlePublier}>
               Publier
             </Button>
-              <Button
-                variant="outline"
-                className="w-full"
-                onClick={() => closeModal()}
-              >
-                Annuler
-              </Button>
+            <Button
+              variant="outline"
+              className="w-full"
+              onClick={() => closeModal()}
+            >
+              Annuler
+            </Button>
           </div>
         </div>
       </DrawerContent>
