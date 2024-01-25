@@ -5,8 +5,12 @@ import SkeletonPostList from "./skeletonFeed";
 
 interface FeedProps {
   map(
-    arg0: (post: FeedProps) => import("react/jsx-runtime").JSX.Element
-  ): import("react").ReactNode;
+    arg0: (
+      post: FeedProps,
+      index: number
+    ) => import("react/jsx-runtime").JSX.Element
+  ): unknown;
+  length: number;
   id: string;
   content: string;
   favourites: number;
@@ -41,7 +45,7 @@ export default function Feed() {
   return (
     <>
       {postData &&
-        postData.map((post: FeedProps) => (
+        postData.map((post: FeedProps, index: number) => (
           <Link to={`/post/${post.id}`} key={post.id}>
             <Posts
               postId={post.id}
@@ -49,6 +53,9 @@ export default function Feed() {
               favourites={post.favourites}
               username={post.author.username}
               created_date={new Date(post.created_date)}
+              className={`${
+                index === postData.length - 1 ? "" : "border-border border-b-2"
+              }`}
             />
           </Link>
         ))}
