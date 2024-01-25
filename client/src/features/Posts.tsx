@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/dialog";
 import TimeElapsedComponent from "./fonctions/TimeElapsed";
 import { useNavigate } from "react-router-dom";
+import ListFllwrsSubs from "./ListFllwrsSubs";
 
 interface PostProps {
   postId: string;
@@ -19,6 +20,7 @@ interface PostProps {
   favourites: number;
   username: string;
   created_date: Date;
+  className?: string;
 }
 
 const Posts = ({
@@ -27,6 +29,7 @@ const Posts = ({
   favourites,
   username,
   created_date,
+  className,
 }: PostProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(favourites);
@@ -108,87 +111,98 @@ const Posts = ({
     }
   };
 
-  const handleLikesCountClick = (e: React.MouseEvent<HTMLSpanElement>) => {
-    e.preventDefault();
-    setIsDialogTriggerOpen((prev) => !prev);
-  };
+  // const handleLikesCountClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+  //   e.preventDefault();
+  //   setIsDialogTriggerOpen((prev) => !prev);
+  // };
 
-  const handleDialogClose = () => {
-    setIsDialogTriggerOpen(false);
-  };
+  // const handleDialogClose = () => {
+  //   setIsDialogTriggerOpen(false);
+  // };
 
+  // const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   e.preventDefault();
+  //   if (stopPropagation && e.target === e.currentTarget) {
+  //     setIsDialogTriggerOpen((prev) => !prev);
+  //   }
+  // };
 
-    const handleInteraction = (e: React.MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        if (stopPropagation && e.target === e.currentTarget) {
-            setIsDialogTriggerOpen((prev) => !prev);
-        }
-    };
-
-
-    return (
-        <div className="py-5 border-border border-b-2 flex gap-3">
-            <div>
-                <Avatar>
-                    <AvatarImage src="https://picsum.photos/200"/>
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-            </div>
-            <div className="flex flex-col gap-2 w-full">
-                <div className="flex w-full justify-between">
-                    <p
-                        onClick={(e) => {
-                            e.preventDefault();
-                            navigate(`/profil/${username}`);
-                        }}
-                    >
-                        <Typography
-                            as="span"
-                            className="font-bold text-sm hover:underline "
-                        >
-                            {username}
-                        </Typography>
-                    </p>
-                    <Typography as="span" className="text-muted-foreground text-sm">
-                        <TimeElapsedComponent startTime={created_date}/>
-                    </Typography>
-                </div>
-                <div className="flex flex-col gap-3">
-                    <Typography as="span" className="text-sm">
-                        {content}
-                    </Typography>
-                    <div className="flex -ml-2">
-                        <Icon
-                            icon="like"
-                            size={22}
-                            isLiked={isLiked}
-                            onClick={handleLikeClick}
-                        />
-                        <Icon icon="send" size={22}/>
-                    </div>
-                    <Dialog open={isDialogTriggerOpen} close={handleDialogClose}>
-                        <DialogTrigger className={'items-start justify-start w-min'} onClick={handleLikesCountClick}>
-                            <Typography as="span" className="text-muted-foreground text-xs whitespace-nowrap" >
-                                {likesCount} likes
-                            </Typography>
-                        </DialogTrigger>
-                        <DialogContent onClick={handleInteraction}>
-                            <DialogHeader>
-                                <DialogTitle>Liste des likes</DialogTitle>
-                                <DialogDescription>
-                                   liste des likes
-                                </DialogDescription>
-                            </DialogHeader>
-                        </DialogContent>
-                    </Dialog>
-                </div>
-            </div>
-
+  return (
+    <div className={`py-5 flex gap-3 ${className}`}>
+      <div>
+        <Avatar>
+          <AvatarImage src="https://picsum.photos/200" />
+          <AvatarFallback>CN</AvatarFallback>
+        </Avatar>
+      </div>
+      <div className="flex flex-col gap-2 w-full">
+        <div className="flex w-full justify-between">
+          <p
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(`/profil/${username}`);
+            }}
+          >
+            <Typography
+              as="span"
+              className="font-bold text-sm hover:underline "
+            >
+              {username}
+            </Typography>
+          </p>
+          <Typography as="span" className="text-muted-foreground text-sm">
+            <TimeElapsedComponent startTime={created_date} />
+          </Typography>
+        </div>
+        <div className="flex flex-col gap-3">
+          <Typography as="span" className="text-sm">
+            {content}
+          </Typography>
+          <div className="flex -ml-2">
+            <Icon
+              icon="like"
+              size={22}
+              isLiked={isLiked}
+              onClick={handleLikeClick}
+            />
+            <Icon icon="send" size={22} />
+          </div>
+          <Dialog>
+            <DialogTrigger className="flex items-center">
+              <Typography
+                className="text-muted-foreground text-xs whitespace-nowrap"
+                as="p"
+              >
+                {likesCount} followers
+              </Typography>
+            </DialogTrigger>
+            <DialogContent className={"h-full lg:h-3/4 overflow-hidden"}>
+              Bonjour
+            </DialogContent>
+          </Dialog>
+          {/* <Dialog open={isDialogTriggerOpen} close={handleDialogClose}>
+            <DialogTrigger
+              className={"items-start justify-start w-min"}
+              onClick={handleLikesCountClick}
+            >
+              <Typography
+                as="span"
+                className="text-muted-foreground text-xs whitespace-nowrap"
+              >
+                {likesCount} likes
+              </Typography>
+            </DialogTrigger>
+            <DialogContent onClick={handleInteraction}>
+              <DialogHeader>
+                <DialogTitle>Liste des likes</DialogTitle>
+                <DialogDescription>liste des likes</DialogDescription>
+              </DialogHeader>
+            </DialogContent>
+          </Dialog> */}
         </div>
       </div>
     </div>
   );
 };
-
 
 export default Posts;
