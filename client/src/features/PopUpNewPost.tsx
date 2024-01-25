@@ -4,16 +4,50 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/context/ModalContext";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function PopUpNewPost() {
   const { isModalOpen, closeModal } = useModal();
   const [postText, setPostText] = useState<string>("");
-  const handlePublier = () => {
-    closeModal();
-  };
+  const { toast } = useToast();
 
   const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setPostText(e.target.value);
+  };
+
+  const handlePublier = () => {
+    const dataToSend = {
+      content: postText,
+    };
+
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include" as RequestCredentials,
+      body: JSON.stringify(dataToSend),
+    };
+
+    fetch("http://localhost:8000/post/", requestOptions)
+      .then((response) => {
+        if (response.status === 200) {
+          setPostText("");
+          toast({
+            description: "Votre post à bien été publié !",
+          });
+          closeModal();
+        }
+
+        if (!response.ok) {
+          throw new Error(
+            `La requête a échoué avec le statut ${response.status}`
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la requête :", error);
+      });
   };
 
   const maxPostLength: number = 240;
