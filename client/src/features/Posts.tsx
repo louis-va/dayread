@@ -92,6 +92,7 @@ const Posts = ({
             }
         } catch (error) {
             console.error("Erreur lors de l'enregistrement du like", error);
+
         }
     };
 
