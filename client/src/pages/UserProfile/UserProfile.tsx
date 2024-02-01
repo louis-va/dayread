@@ -20,7 +20,7 @@ const UserProfile = () => {
   const { username } = useParams<{ username: string }>();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/${username}`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${username}`, {
       method: "GET",
       credentials: "include",
     })

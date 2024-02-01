@@ -35,7 +35,7 @@ const Posts = ({
     const checkLikeStatus = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/user/${username}/liked-posts?page=%2A`,
+          `${import.meta.env.VITE_API_URL}/user/${username}/liked-posts?page=%2A`,
           {
             method: "GET",
             credentials: "include" as RequestCredentials,
@@ -66,7 +66,7 @@ const Posts = ({
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:8000/post/${postId}/${isLiked ? "unlike" : "like"}`,
+        `${import.meta.env.VITE_API_URL}/post/${postId}/${isLiked ? "unlike" : "like"}`,
         {
           method: "POST",
           credentials: "include",

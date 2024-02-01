@@ -23,7 +23,7 @@ function PostPage() {
     const {id} = useParams<{ id: string }>();
 
     useEffect(() => {
-        fetch(`${process.env.VITE_API_URL}/post/${id}`, {
+        fetch(`${import.meta.env.VITE_API_URL}/post/${id}`, {
             method: "GET",
             credentials: "include",
         })

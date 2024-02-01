@@ -40,7 +40,7 @@ export default function DrawerNewPost() {
       body: JSON.stringify(dataToSend),
     };
 
-    fetch(`${process.env.VITE_API_URL}/post/`, requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/post/`, requestOptions)
       .then((response) => {
         if (response.status === 200) {
           setContenuTextarea("");

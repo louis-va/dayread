@@ -27,7 +27,7 @@ export default function Feed() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/feed?page=1", {
+    fetch(`${import.meta.env.VITE_API_URL}/feed?page=1`, {
       method: "GET",
       credentials: "include",
     })

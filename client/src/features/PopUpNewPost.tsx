@@ -30,7 +30,7 @@ export default function PopUpNewPost() {
       body: JSON.stringify(dataToSend),
     };
 
-    fetch("http://localhost:8000/post/", requestOptions)
+    fetch(`${import.meta.env.VITE_API_URL}/post/`, requestOptions)
       .then((response) => {
         if (response.status === 200) {
           setPostText("");

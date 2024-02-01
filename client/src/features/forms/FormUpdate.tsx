@@ -42,7 +42,7 @@ const FormUpdate = () => {
 
         // Vérifier si le nom d'utilisateur est présent
         if (storedUsername) {
-            fetch(`http://localhost:8000/user/${storedUsername}`, {
+            fetch(`${import.meta.env.VITE_API_URL}/user/${storedUsername}`, {
                 method: 'GET',
                 credentials: "include" as RequestCredentials
             })
@@ -88,7 +88,7 @@ const FormUpdate = () => {
                 body: payload,
             };
 
-            const response = await fetch(`http://localhost:8000/user/edit`, options);
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/user/edit`, options);
 
             if (response.status === 200) {
                 navigate(`/profil/${getUserName()}`);

@@ -21,7 +21,7 @@ export default function PostList() {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:8000/user/${username}/posts?page=1`, {
+    fetch(`${import.meta.env.VITE_API_URL}/user/${username}/posts?page=1`, {
       method: "GET",
       credentials: "include",
     })

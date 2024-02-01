@@ -26,7 +26,7 @@ export default function Discover() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/feed/discover?page=1", {
+    fetch(`${import.meta.env.VITE_API_URL}/feed/discover?page=1`, {
       method: "GET",
       credentials: "include",
     })
