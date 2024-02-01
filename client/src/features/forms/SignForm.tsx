@@ -63,7 +63,7 @@ export default function SignForm() {
             };
 
             const response = await fetch(
-                `${process.env.VITE_API_URL}/auth/signup`,
+                `${import.meta.env.VITE_API_URL}/auth/signup`,
                 options
             );
 
