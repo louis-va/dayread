@@ -45,7 +45,7 @@ const Posts = ({
         if (response.status === 200) {
           const likedPosts = await response.json();
           const postIsLiked = likedPosts.some(
-            (post:any) => post.id === postId.toLowerCase()
+            (post:any) => post.id === postId?.toLowerCase()
           );
           setIsLiked(postIsLiked);
         } else {
