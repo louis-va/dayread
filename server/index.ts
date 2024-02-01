@@ -47,7 +47,7 @@ app.use(helmet());
 
 // Allow requests from multiple origins
 app.use(cors({
-origin: ["http://localhost:3000", "http://localhost:8000", "http://localhost:5173"],
+origin: ["http://localhost:3000", "http://localhost:8000", "http://localhost:5173", "https://dayread.lou-va.com"],
 
   credentials: true
 }));
