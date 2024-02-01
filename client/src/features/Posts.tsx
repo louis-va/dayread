@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import ListFllwrsSubs from "./ListFllwrsSubs";
 
 interface PostProps {
-  postId: string;
+  postId?: string;
   content: string;
   favourites: number;
   username: string;

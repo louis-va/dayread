@@ -58,7 +58,7 @@ export default function LoginForm() {
       };
 
       const response = await fetch(
-        "http://localhost:8000/auth/signin",
+        `${process.env.VITE_API_URL}/auth/signin`,
         options
       );
 

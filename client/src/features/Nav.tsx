@@ -37,7 +37,7 @@ export default function Nav() {
       };
 
       const response = await fetch(
-        "http://localhost:8000/auth/signout",
+        `${process.env.VITE_API_URL}/auth/signout`,
         options
       );
 

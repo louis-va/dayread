@@ -22,9 +22,8 @@ function PostPage() {
     const [postData, setPostData] = useState<PostProps>();
     const {id} = useParams<{ id: string }>();
 
-
     useEffect(() => {
-        fetch(`http://localhost:8000/post/${id}`, {
+        fetch(`${process.env.VITE_API_URL}/post/${id}`, {
             method: "GET",
             credentials: "include",
         })
