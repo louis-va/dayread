@@ -22,6 +22,7 @@ import env from './env.config'
 const app: Express = express();
 
 // Define, configure and serve Swagger/OpenAPI
+const serverUrl = (env.ENV=='production')?'https://api.dayread.lou-va.com':'http://localhost:8000';
 const options: swaggerJsdoc.OAS3Options = {
   definition: {
     openapi: '3.0.0',
@@ -32,7 +33,7 @@ const options: swaggerJsdoc.OAS3Options = {
     },
     servers: [
       {
-        url: 'http://localhost:8000',
+        url: serverUrl,
       },
     ],
   },
