@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "scripts": {
     "build": "npx tsc",
-    "start": "NODE_ENV=production node dist/index.js",
+    "start": "NODE_ENV=development node dist/index.js",
     "dev": "NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "devWin": "cross-env NODE_ENV=development concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
     "lint": "npx eslint .",
