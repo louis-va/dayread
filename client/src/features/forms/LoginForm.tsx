@@ -15,6 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import {setUserName} from "@/localStorageUtils/LsUtils";
 
 const FormSchema = z.object({
   mail: z
@@ -56,18 +57,27 @@ export default function LoginForm() {
         body: payload,
       };
 
-      console.log("payload", payload);
-
       const response = await fetch(
         `${process.env.VITE_API_URL}/auth/signin`,
         options
       );
 
       if (response.status === 200) {
+        const body = await response.json();
+        // Extraction du "username" de la réponse
+        const usernameFromResponse = body.username;
+
+        // Stockage du "username" dans le localStorage
+        setUserName(usernameFromResponse);
+
+        // Redirection vers la page d'accueil
         navigate("/");
+
       }
 
-      if (!response.ok) throw new Error("An error occured during signup");
+
+      if (!response.ok)
+        throw new Error("An error occured during signup");
 
       const body = await response.json();
       console.log("body:", body);
@@ -75,6 +85,7 @@ export default function LoginForm() {
       throw new Error(error.message || "An error occured during signup");
     }
   };
+
 
   return (
     <Form {...form}>

@@ -12,7 +12,7 @@ export default function NewPost() {
   };
   return (
     <div
-      className="hidden md:flex items-center w-full justify-between border-b-2 border-border pb-5"
+      className="hidden lg:flex items-center w-full justify-between border-b-2 border-border pb-5"
       onClick={handleOpenModal}
     >
       <div className="flex items-center gap-3">

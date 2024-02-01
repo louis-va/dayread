@@ -16,38 +16,52 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import Typography from "@/features/Typography";
 import Avatars from "@/features/Avatars";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ListFllwrsSubs from "@/features/ListFllwrsSubs";
+import { getUserName } from "@/localStorageUtils/LsUtils";
 
 interface CardProfileProps {
-  userName: string;
+  userLastName: string;
+  userFirstName: string;
   userPseudo: string;
-  userEmail: string;
   userBio: string;
   userFollowers: number;
   userSubscribers: number;
-  listFollowers: string;
-  listSubscribers: string;
 }
 
 const CardProfile = ({
-  userName,
+  userLastName,
+  userFirstName,
   userPseudo,
-  userEmail,
   userBio,
   userFollowers,
   userSubscribers,
 }: CardProfileProps) => {
+  const firstLetterLastName = userLastName.charAt(0);
+  const firstLetterFirstName = userFirstName.charAt(0);
+  const initiales = firstLetterLastName + firstLetterFirstName;
+
+  const userUseParams = useParams<{ username: string }>();
+  const userLink = userUseParams.username;
+  const userName = getUserName();
+  let isUser;
+
+  if (userName === userLink) {
+    isUser = true;
+  } else {
+    isUser = false;
+  }
+
   return (
     <Card className="bg-background border-none shadow-none w-full">
       <CardHeader className={"flex-row justify-between items-center"}>
         <section className="flex-col">
-          <CardTitle className={"text-xl lg:text-2xl"}>{userName}</CardTitle>
+          <CardTitle className={"text-xl lg:text-2xl"}>{userPseudo}</CardTitle>
           <CardDescription className={"lg:text-lg"}>
-            {userPseudo}
+            {userLastName} {userFirstName}
           </CardDescription>
         </section>
-        <Avatars value={userEmail} size={64} style={"shape"} />
+        <Avatars value={initiales.toString()} size={64} style={"shape"} />
       </CardHeader>
       <CardContent>
         <Typography as="p">{userBio}</Typography>
@@ -63,7 +77,7 @@ const CardProfile = ({
               {userSubscribers} suivi(e)s
             </Typography>
           </DialogTrigger>
-          <DialogContent className={"h-full md:h-3/4 overflow-hidden"}>
+          <DialogContent className={"h-full lg:h-3/4 overflow-hidden"}>
             <Tabs defaultValue="followers" className="w-full h-full pt-4">
               <DialogHeader>
                 <TabsList className="w-full justify-between py-6 rounded-md">
@@ -82,7 +96,7 @@ const CardProfile = ({
                 </TabsList>
               </DialogHeader>
               <TabsContent
-                className={"h-full p-2 overflow-auto md:h-3/4"}
+                className={"h-full p-2 overflow-auto lg:h-3/4"}
                 value="followers"
               >
                 <ul>
@@ -94,7 +108,7 @@ const CardProfile = ({
                 </ul>
               </TabsContent>
               <TabsContent
-                className={"h-full p-2 overflow-auto md:h-3/4"}
+                className={"h-full p-2 overflow-auto lg:h-3/4"}
                 value="subscribers"
               >
                 <ul className={" h-1/2 overflow-auto lg:h-3/4"}>
@@ -109,12 +123,23 @@ const CardProfile = ({
           </DialogContent>
         </Dialog>
       </CardContent>
-      <CardFooter className={"px-0 md:justify-center"}>
-        <Button className="w-full" variant="outline" asChild={true} size={"lg"}>
-          <Link to={"/profil/update"}>
-            <Typography as="p">Modifier le profil</Typography>
-          </Link>
-        </Button>
+      <CardFooter className={"px-0 lg:justify-center"}>
+        {isUser ? (
+          <Button
+            className="w-full"
+            variant="outline"
+            asChild={true}
+            size={"lg"}
+          >
+            <Link to={"/profil/update"}>
+              <Typography as="p">Modifier le profil</Typography>
+            </Link>
+          </Button>
+        ) : (
+          <Button className="w-full" variant="white" size={"lg"}>
+            <Typography as="p">S'abonner</Typography>
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
