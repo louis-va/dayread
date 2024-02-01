@@ -8,7 +8,7 @@ import {Input} from "@/components/ui/input";
 import {Textarea} from "@/components/ui/textarea";
 import Typography from "@/features/Typography";
 import Icon from "@/components/ui/icons";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import {getUserName} from "@/localStorageUtils/LsUtils";
 
 
@@ -31,12 +31,6 @@ const handleError = (error: any) => {
 };
 
 const FormUpdate = () => {
-    const [userData, setUserData] = useState({
-        lastname: "",
-        firstname: "",
-        bio: "",
-    });
-
     const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof FormSchema> & { username: string }>() as UseFormReturn<
@@ -59,7 +53,6 @@ const FormUpdate = () => {
                     return response.json();
                 })
                 .then((userData) => {
-                    setUserData(userData);
                     form.setValue("lastname", userData.lastname || '');
                     form.setValue("firstname", userData.firstname || '');
                     form.setValue("bio", userData.bio || '');
