@@ -5,7 +5,7 @@ import Icon from "@/components/ui/icons";
 import TimeElapsedComponent from "./fonctions/TimeElapsed";
 
 interface PostProps {
-    postId: string;
+    postId?: string;
     content: string;
     favourites: number;
     username: string;
@@ -24,7 +24,7 @@ const Posts: React.FC<PostProps> = ({
 
     const handleLikeClick = async () => {
         try {
-            const response = await fetch(`http://localhost:8000/post/${postId}/${isLiked ? 'unlike' : 'like'}`, {
+            const response = await fetch(`${process.env.VITE_API_URL}/post/${postId}/${isLiked ? 'unlike' : 'like'}`, {
                 method: "POST",
                 credentials: "include",
             });

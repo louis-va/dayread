@@ -18,7 +18,7 @@ export default function PostList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:8000/post/65a6fbf76fc237aa2e6200f1", {
+    fetch(`${process.env.VITE_API_URL}/post/65a6fbf76fc237aa2e6200f1`, {
       method: "GET",
       credentials: "include",
     })

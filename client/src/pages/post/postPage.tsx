@@ -21,7 +21,7 @@ function PostPage() {
   const [postData, setPostData] = useState<PostProps>();
 
   useEffect(() => {
-    fetch("http://localhost:8000/post/65a6e7dd464ec41eac67d345", {
+    fetch(`${process.env.VITE_API_URL}/post/65a6e7dd464ec41eac67d345`, {
       method: "GET",
       credentials: "include",
     })

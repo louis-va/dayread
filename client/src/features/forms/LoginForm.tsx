@@ -59,7 +59,7 @@ export default function LoginForm() {
       console.log("payload", payload);
 
       const response = await fetch(
-        "http://localhost:8000/auth/signin",
+        `${process.env.VITE_API_URL}/auth/signin`,
         options
       );
 

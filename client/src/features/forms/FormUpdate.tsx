@@ -73,7 +73,7 @@ const FormUpdate = () => {
         body: payload,
       };
 
-      const response = await fetch("http://localhost:8000/", options);
+      const response = await fetch(`${process.env.VITE_API_URL}/`, options);
 
       if (response.status === 200) {
         navigate("/profil");
