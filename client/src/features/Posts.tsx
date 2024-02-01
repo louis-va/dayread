@@ -5,14 +5,10 @@ import Icon from "@/components/ui/icons";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import TimeElapsedComponent from "./fonctions/TimeElapsed";
 import { useNavigate } from "react-router-dom";
-import ListFllwrsSubs from "./ListFllwrsSubs";
 
 interface PostProps {
   postId?: string;
@@ -33,8 +29,6 @@ const Posts = ({
 }: PostProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(favourites);
-  const [isDialogTriggerOpen, setIsDialogTriggerOpen] =
-    useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -51,7 +45,7 @@ const Posts = ({
         if (response.status === 200) {
           const likedPosts = await response.json();
           const postIsLiked = likedPosts.some(
-            (post) => post.id === postId.toLowerCase()
+            (post:any) => post.id === postId.toLowerCase()
           );
           setIsLiked(postIsLiked);
         } else {
@@ -163,7 +157,7 @@ const Posts = ({
               icon="like"
               size={22}
               isLiked={isLiked}
-              onClick={handleLikeClick}
+              onClick={()=>handleLikeClick}
             />
             <Icon icon="send" size={22} />
           </div>
